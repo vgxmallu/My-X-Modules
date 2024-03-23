@@ -19,7 +19,7 @@ startbt = InlineKeyboardMarkup(
 @Mbot.on_message(filters.private & filters.command(["start", "help"]))
 async def start_command(bot, message):
     await message.reply_text(
-        caption=start_cmd.format(message.from_user.first_name), 
+        text=start_cmd.format(message.from_user.first_name), 
         reply_markup=startbt,
     )
     await message.delete()
