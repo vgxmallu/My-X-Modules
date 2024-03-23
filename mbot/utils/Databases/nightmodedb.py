@@ -1,5 +1,5 @@
 from typing import Dict, List, Union
-from mbot.utils.database import mongodb
+from mbot.utils.Database import mongodb
 
 nightdb = mongodb.nightmode
 
