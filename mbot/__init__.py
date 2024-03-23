@@ -5,9 +5,7 @@ from pyrogram import Client
 import time
 from telethon import TelegramClient, events, functions, types
 from httpx import AsyncClient, Timeout
-import telebot
 from config import DB_URL
-#
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 
 CMD = ["/", ".", "?", "#", "!", "mg", "mx", ","]
