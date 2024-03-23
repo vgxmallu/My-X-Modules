@@ -6,6 +6,7 @@ import time
 from telethon import TelegramClient, events, functions, types
 from httpx import AsyncClient, Timeout
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
+import telebot
 
 CMD = ["/", ".", "?", "#", "!", "mg", "mx", ","]
 
@@ -75,13 +76,14 @@ AUTH_CHATS = [int(_x) for _x in AUTH_CHATS]
 #    LOG_GROUP = int(LOG_GROUP)
 
 
-
+#TELETHON BOT RUNNER
 bot = TelegramClient(__name__, API_ID, API_HASH, base_logger=telethon_logger).start(bot_token=BOT_TOKEN)
 logger.info("TELETHON BOT STARTED BROO")
 
-# Init bot
+# TELE BOT RUNNER
 tbot = telebot.TeleBot(BOT_TOKEN) 
-    
+
+#PYTHON BOT RUNNER
 class Mbot(Client):
     def __init__(self):
         name = self.__class__.__name__.lower()
