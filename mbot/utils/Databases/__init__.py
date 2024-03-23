@@ -4,4 +4,4 @@ from config import DB_URL, DB_NAME
 
 
 mongo = _mongo_client_(DB_URL)
-dbname = mongo[DB_NAME]
+mongodb = mongo[DB_NAME]
