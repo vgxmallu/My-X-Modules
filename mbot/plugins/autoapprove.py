@@ -1,123 +1,119 @@
+"""
+ * @author        yasir <yasiramunandar@gmail.com>
+ * @date          2022-12-01 09:12:27
+ * @projectName   MissKatyPyro
+ * Copyright @YasirPedia All rights reserved
+"""
 from pyrogram import filters
-from pyrogram.types import (
-    CallbackQuery,
-    ChatJoinRequest,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-)
+from pyrogram.errors import UserAlreadyParticipant, UserIsBlocked
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from mbot import Mbot as app
-from config import SUDO
-from mbot.utils.Database import mongodb
-
-#from misskaty.core.decorator.permissions import adminsOnly, member_permissions
-
-approvaldb = mongodb["autoapprove"]
+#from config import CHANNEL_ID
 
 
-async def member_permissions(chat_id: int, user_id: int):
-    perms = []
-    try:
-        member = (await app.get_chat_member(chat_id, user_id)).privileges
-        if member.can_post_messages:
-            perms.append("can_post_messages")
-        if member.can_edit_messages:
-            perms.append("can_edit_messages")
-        if member.can_delete_messages:
-            perms.append("can_delete_messages")
-        if member.can_restrict_members:
-            perms.append("can_restrict_members")
-        if member.can_promote_members:
-            perms.append("can_promote_members")
-        if member.can_change_info:
-            perms.append("can_change_info")
-        if member.can_invite_users:
-            perms.append("can_invite_users")
-        if member.can_pin_messages:
-            perms.append("can_pin_messages")
-        if member.can_manage_video_chats:
-            perms.append("can_manage_video_chats")
-        return perms
-    except:
-        return []
+cap = """
+Request to Join <b>♣️Music🎵Galaxy♣️</b> Group:
+Before entering the Group there is an honesty Rules,
+please read This!
 
-@app.on_message(filters.command("autoapprove") & filters.group)
-async def approval_command(_, message: Message):
-    chat_id = message.chat.id
-    if (await approvaldb.count_documents({"chat_id": chat_id})) > 0:
-        keyboard_OFF = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Turn OFF", callback_data="approval_off")]]
-        )
-        await message.reply(
-            "**Autoapproval for this chat: Enabled.**",
-            reply_markup=keyboard_OFF,
-        )
-    else:
-        keyboard_ON = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Turn ON", callback_data="approval_on")]]
-        )
-        await message.reply(
-            "**Autoapproval for this chat: Disabled.**",
-            reply_markup=keyboard_ON,
-        )
+The rules for <b>♣️Music🎵Galaxy♣️</b> are
+──────────────────
+• ⚠️ NO SPAMMING
 
+• 🌊 NO FLOODS
 
-@app.on_callback_query(filters.regex("approval(.*)"))
-async def approval_cb(_, cb: CallbackQuery):
-    chat_id = cb.message.chat.id
-    from_user = cb.from_user
+• 🚯 NO PROMOTION!
 
-    permissions = await member_permissions(chat_id, from_user.id)
-    permission = "can_restrict_members"
-    if permission not in permissions:
-        if from_user.id not in SUDO:
-            return await cb.answer(
-                f"You don't have the required permission.\n Permission: {permission}",
-                show_alert=True,
-            )
+•=•WARN + BAN•=•
+──────────────────
+🚫Never do Unwanted pm to any  <b>Admins Or Members.</b>
+`if any one coming to your pm to messaging? [Block, Report] and you can report to my group
+example: 
+@admin his user_name/id  is coming my pm (and your type complaint)
+🚫Don't send any other
+Telegram, Whatsapp group channels links..
+🚫No any types of promotions.
+🚫No Chating 
+──────────────────
+This a song  download group, just request your song in our group.
+Or
 
-    command_parts = cb.data.split("_", 1)
-    option = command_parts[1]
+<b>YouTube?</b>
+Paste YouTube link to download Songs.
+<b>Spotify?</b>
+Mention @spotifybot, @Musicx_dlbot and type a song name Or
+Paste Spotify single Track links to download Songs.
+<b>Deezer?</b>
+Mention @DeezerMusicBot and type any song name/Paste a link/URL of a song.
+<b>SoundCloud?</b>
+Paste SoundCloud Single Track link to download Songs.
+<b>Instagram?</b>
+ Paste link/URL Or /igdl link to download.
+<b>Facebook?</b>
+Type /fbdl link to download Facebook Video/reels.
 
-    if option == "on":
-        if await approvaldb.count_documents({"chat_id": chat_id}) == 0:
-            approvaldb.insert_one({"chat_id": chat_id})
-            keyboard_off = InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "Turn OFF", callback_data="approval_off"
-                        )
-                    ]
-                ]
-            )
-            await cb.edit_message_text(
-                "**Autoapproval for this chat: Enabled.**",
-                reply_markup=keyboard_off,
-            )
-    elif option == "off":
-        if await approvaldb.count_documents({"chat_id": chat_id}) > 0:
-            approvaldb.delete_one({"chat_id": chat_id})
-            keyboard_on = InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "Turn ON", callback_data="approval_on"
-                        )
-                    ]
-                ]
-            )
-            await cb.edit_message_text(
-                "**Autoapproval for this chat: Disabled.**",
-                reply_markup=keyboard_on,
-            )
-    return await cb.answer()
+💜By: @songdownload_group
+have you read the Rules? 
+Then Click The Approve Me Botton!
+Thank you ❤️
+"""
 
 
+
+# Filters Approve User by bot in channel 
 @app.on_chat_join_request(filters.group)
-async def accept(_, message: ChatJoinRequest):
-    chat = message.chat
-    user = message.from_user
-    if (await approvaldb.count_documents({"chat_id": chat.id})) > 0:
-        await app.approve_chat_join_request(chat_id=chat.id, user_id=user.id)
+async def approve_join_chat(c, m):
+    try:
+        markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="Approve Me", callback_data=f"approve_{m.chat.id}"
+                    ),
+                    InlineKeyboardButton(
+                        text="Decline Me", callback_data=f"declined_{m.chat.id}"
+                    ),
+                ]
+            ]
+        )
+        await c.send_message(
+            m.from_user.id,
+            f"{cap}",
+            disable_web_page_preview=True,
+            reply_markup=markup,
+        )
+    except UserIsBlocked:
+        await m.decline()
+
+
+@app.on_callback_query(filters.regex(r"^approve"))
+async def approve_chat(c, q):
+    _, chat = q.data.split("_")
+    try:
+        await q.message.edit(
+            "🎉 Congratulations\n\n🔅 Now your Request for <b>♣️Music🎵Galaxy♣️</b> Group is Successfully Accepted✅\nNow you can request your song's in Group\n🎧 https://t.me/songdownload_group"
+        )
+        await c.approve_chat_join_request(chat, q.from_user.id)
+    except UserAlreadyParticipant:
+        await q.message.edit(
+            "You are already Joined in the group, So Go here 🎧 https://t.me/songdownload_group"
+        )
+    except Exception as err:
+        await q.message.edit(err)
+
+
+@app.on_callback_query(filters.regex(r"^declined"))
+async def decline_chat(c, q):
+    _, chat = q.data.split("_")
+    try:
+        await q.message.edit(
+            "Well, you were rejected Join Group. Get used to reading yahhh.."
+        )
+        await c.decline_chat_join_request(chat, q.from_user.id)
+    except UserAlreadyParticipant:
+        await q.message.edit(
+            "You are already in the Music Galaxy group, so no need to press the button below."
+        )
+    except Exception as err:
+        await q.message.edit(err)
