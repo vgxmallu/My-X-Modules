@@ -4,7 +4,7 @@ from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineK
 from pyrogram import filters, Client
 
 from mbot import Mbot as app
-from config import AUTH_USERS as OWNER_ID
+from config import OWNER_ID
 from mbot.utils.helper.admin_check import admin_filter
 
 
@@ -187,7 +187,7 @@ async def setg_discription(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command("leavegroup")& filters.user(OWNER_ID))
+@app.on_message(filters.command("leavegroup") & filters.user(OWNER_ID))
 async def bot_leave(_, message):
     chat_id = message.chat.id
     text = "**ʟᴇᴀᴠᴇ ᴋᴀʀ ᴅɪʏᴀ ʙʜᴏsᴀᴅɪᴡᴀʟᴇ ᴋᴀ ɢʀᴏᴜᴘ !!.**"
