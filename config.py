@@ -20,3 +20,5 @@ AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "784589736").split
 
 #BORADCAST
 BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", True))
+
+CHROME_BIN = os.environ.get("CHROME_BIN",  "/usr/bin/google-chrome-stable")
