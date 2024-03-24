@@ -44,3 +44,4 @@ imdbpy
 qrcode
 CairoSVG
 selenium
+pyfiglet
