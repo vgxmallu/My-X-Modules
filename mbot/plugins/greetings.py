@@ -26,6 +26,9 @@ startbt = InlineKeyboardMarkup(
             ]
         ]
 )
+stk = (
+    "CAACAgUAAxkBAAEC6JVmAAETqSfP_73ZK2lF5UBjikWA4WkAApMPAAJYPgABVK6vQdKgxIntHgQ",
+)
 @Mbot.on_message(filters.private)
 async def _(bot, cmd):
     await handle_user_status(bot, cmd)
@@ -46,6 +49,7 @@ async def start_command(bot, message):
         text=start_cmd.format(message.from_user.first_name), 
         reply_markup=startbt,
     )
+    await message.reply_sticker(stk)
     await message.delete()
 #==================≠
 
