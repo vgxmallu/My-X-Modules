@@ -9,7 +9,7 @@ from pyrogram import Client
 from pyrogram import filters
 
 
-
+#
 def carbon(code):
     url = f"https://api.safone.dev/carbon?code={quote(code)}"
     resp = requests.get(url)
