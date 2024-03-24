@@ -11,10 +11,36 @@ from mbot import Mbot as app
 from config import SUDO
 from mbot.utils.Database import mongodb
 
+#from misskaty.core.decorator.permissions import adminsOnly, member_permissions
+
 approvaldb = mongodb["autoapprove"]
 
 
-
+async def member_permissions(chat_id: int, user_id: int):
+    perms = []
+    try:
+        member = (await app.get_chat_member(chat_id, user_id)).privileges
+        if member.can_post_messages:
+            perms.append("can_post_messages")
+        if member.can_edit_messages:
+            perms.append("can_edit_messages")
+        if member.can_delete_messages:
+            perms.append("can_delete_messages")
+        if member.can_restrict_members:
+            perms.append("can_restrict_members")
+        if member.can_promote_members:
+            perms.append("can_promote_members")
+        if member.can_change_info:
+            perms.append("can_change_info")
+        if member.can_invite_users:
+            perms.append("can_invite_users")
+        if member.can_pin_messages:
+            perms.append("can_pin_messages")
+        if member.can_manage_video_chats:
+            perms.append("can_manage_video_chats")
+        return perms
+    except:
+        return []
 
 @app.on_message(filters.command("autoapprove") & filters.group)
 async def approval_command(_, message: Message):
@@ -42,6 +68,7 @@ async def approval_cb(_, cb: CallbackQuery):
     chat_id = cb.message.chat.id
     from_user = cb.from_user
 
+    permissions = await member_permissions(chat_id, from_user.id)
     permission = "can_restrict_members"
     if permission not in permissions:
         if from_user.id not in SUDO:
