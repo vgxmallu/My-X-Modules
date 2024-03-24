@@ -17,8 +17,10 @@ LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001784386455"))
 
 #AUTHENTICATED_USERS
 AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "784589736").split())
+OWNER_ID = int(getenv("OWNER_ID", "784589736"))
 
 #BORADCAST
 BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", True))
 
+#RANDOM_VARIABELS
 CHROME_BIN = os.environ.get("CHROME_BIN",  "/usr/bin/google-chrome-stable")
