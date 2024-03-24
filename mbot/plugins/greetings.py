@@ -6,9 +6,8 @@ from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMa
 from mbot.utils.broadcast_db.broadcast import broadcast
 from mbot.utils.broadcast_db.check_user import handle_user_status
 from mbot.utils.broadcast_db.database import Database
-
 from config import LOG_CHANNEL, AUTH_USERS, DB_URL, DB_NAME
-from handlers.database import Database
+
 
 
 db = Database(DB_URL, DB_NAME)
