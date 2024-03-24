@@ -39,3 +39,4 @@ asgiref
 apscheduler
 mutagen
 beautifulsoup4
+pymediainfo
