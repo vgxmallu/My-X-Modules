@@ -5,7 +5,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pyrogram.types import ChatPermissions
 
 from mbot import Mbot as app
-from mbot.utils.Databases.nightmodedb import nightdb,nightmode_on,nightmode_off,get_nightchats 
+from mbot.utils.Database.nightmodedb import nightdb,nightmode_on,nightmode_off,get_nightchats 
 
 
 
