@@ -1,7 +1,7 @@
-from mbot.utils.Database import dbname
+from mbot.utils.Database import mongodb
 
-usersdb = dbname["users"]
-cleandb = dbname["cleanmode"]
+usersdb = mongodb["users"]
+cleandb = mongodb["cleanmode"]
 cleanmode = {}
 
 
