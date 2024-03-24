@@ -6,7 +6,7 @@ from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMa
 
 from mbot import Mbot as app
 #from config import BOT_USERNAME
-from mbot.utils.helper import admin_filter
+from mbot.utils.helper.admin_check import admin_filter
 from mbot.utils.Database.filtersdb import *
 from mbot.utils.helper.filters_func import GetFIlterMessage, get_text_reason, SendFilterMessage
 from mbot.utils.Database.adisadb import user_admin
