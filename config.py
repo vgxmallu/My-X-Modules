@@ -1,6 +1,12 @@
-import os
 import time
+import os
+from os import getenv
+from dotenv import load_dotenv
 from os import environ
+if os.path.exists("local.env"):
+    load_dotenv("local.env")
+load_dotenv()
+admins = {}
 
 #MOMGO_DATABASE
 DB_URL = os.environ.get("DB_URL", "")
