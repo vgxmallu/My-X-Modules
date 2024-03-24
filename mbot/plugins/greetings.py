@@ -26,7 +26,7 @@ startbt = InlineKeyboardMarkup(
 @Mbot.on_message(filters.private)
 async def _(bot, cmd):
     await handle_user_status(bot, cmd)
-@Mbot.on_message(filters.private & filters.command(["start", "help"]))
+@Mbot.on_message(filters.private & filters.command("start"))
 async def start_command(bot, message):
     chat_id = message.from_user.id
     if not await db.is_user_exist(chat_id):
