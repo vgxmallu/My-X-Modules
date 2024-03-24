@@ -10,7 +10,7 @@ emojiss = [
     "🌚", "😎", "😃", "😁", "😅", "🤗", "😇", "👀",
     "😐", "🤨", "😒", "😱", "🤣", "👌", "😆", "😍", "🧐", "😑"
 ]
-BOT_USERNAME = "Mr_StarkBot"
+BOT_USERNAME = "GojoSatoru_Xbot"
 
 
 @Client.on_message(filters.command(["kang"]))
