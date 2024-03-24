@@ -41,3 +41,5 @@ mutagen
 beautifulsoup4
 pymediainfo
 imdbpy
+qrcode
+CairoSVG
