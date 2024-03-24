@@ -9,7 +9,7 @@ from pyrogram import raw
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 
-from main.helper_func.stcr_funcs import create_sticker, upload_document
+from mbot.utils.helper.stcr_funcs import create_sticker, upload_document
 
 
 #function to crop the image and divide it
