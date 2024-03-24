@@ -11,9 +11,9 @@ aiofiles
 requests==2.31.0
 dnspython==2.4.2
 decorator==5.1.1
+
 Flask==2.1.1
 httpx[http2]
-
 bs4
 wget
 motor==2.5.1
@@ -32,3 +32,4 @@ psutil
 asgiref
 apscheduler
 mutagen
+beautifulsoup4
