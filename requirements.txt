@@ -28,6 +28,7 @@ cachetools==5.3.2
 pyrate_limiter
 pymongo[srv]==3.12.3
 
+telegraph
 psutil
 asgiref
 apscheduler
