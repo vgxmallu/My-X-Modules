@@ -45,3 +45,4 @@ qrcode
 CairoSVG
 selenium
 pyfiglet
+emojis
