@@ -43,3 +43,4 @@ pymediainfo
 imdbpy
 qrcode
 CairoSVG
+selenium
