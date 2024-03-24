@@ -4,7 +4,7 @@ from pyrogram import Client, enums, filters
 from pyrogram.types import Message
 
 from mbot import Mbot as app
-from mbot.utils.Database import add_afk, cleanmode_off, cleanmode_on, is_afk, remove_afk
+from mbot.utils.Database.afk_db import add_afk, cleanmode_off, cleanmode_on, is_afk, remove_afk
 from mbot.utils.helper.human_read import get_readable_time2
 from mbot.utils.helper.utils import put_cleanmode
 
