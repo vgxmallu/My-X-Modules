@@ -95,7 +95,7 @@ def show_collection(callback_query, db_name,mongo_uri):
         for collection_name in collection_names:
             k.append([InlineKeyboardButton(collection_name,
                                            callback_data=f"{collection_name}|:|{db_name}"+id)])
-        k.append([InlineKeyboardButton("Go Back <-", callback_data=f"mongo_"+id)])
+        k.append([InlineKeyboardButton("⬅️Go Back", callback_data=f"mongo_"+id)])
         kb = InlineKeyboardMarkup(k)
         sleep(2)
         callback_query.message.edit("Select db to get List:", reply_markup=kb)
