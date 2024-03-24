@@ -15,7 +15,7 @@ from glitch_this import ImageGlitcher
 from NoteShrinker import NoteShrinker
 from PIL import Image, ImageDraw, ImageFont
 
-from main.helper_func.plugin_helpers import (
+from mbot.utils.helper.plugin_helpers import (
     convert_to_image,
     convert_image_to_image_note,
     convert_vid_to_vidnote,
