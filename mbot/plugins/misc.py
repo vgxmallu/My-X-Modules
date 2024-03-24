@@ -433,7 +433,6 @@ async def yt_comment(client, message):
    await ytc.delete()
 
 @Client.on_message(filters.command(["rytc"]))
-@error_handler
 async def ryt_comment(client, message):
      ytc = await message.reply_text("`Making Comment`")
      try:
