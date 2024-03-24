@@ -2,7 +2,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from mbot.utils.Database,sangmata_db import (
+from mbot.utils.Database.sangmata_db import (
     add_userdata,
     cek_userdata,
     get_userdata,
