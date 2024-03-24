@@ -40,3 +40,4 @@ apscheduler
 mutagen
 beautifulsoup4
 pymediainfo
+imdbpy
