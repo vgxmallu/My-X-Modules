@@ -1,7 +1,7 @@
 
 import logging
 
-from pyrogram.types import Message
+#from pyrogram.types import Message
 from pyrogram import filters
 from mbot import Mbot 
 from mbot.utils.helper.http import fetch
@@ -12,7 +12,7 @@ LOGGER = logging.getLogger("X_Mod")
 
 
 @Mbot.on_message(filters.command("currency"))
-async def currency(_, ctx: Message):
+async def currency(_, ctx):
     if CURRENCY_API is None:
         return await ctx.reply_message(
             "<code>Oops!!get the API from</code> <a href='https://app.exchangerate-api.com/sign-up'>HERE</a> <code>& add it to config vars</code> (<code>CURRENCY_API</code>)",
