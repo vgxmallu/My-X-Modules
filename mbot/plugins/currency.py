@@ -2,7 +2,7 @@
 import logging
 
 from pyrogram.types import Message
-
+from pyrogram import filters
 from mbot import Mbot 
 from mbot.utils.helper.http import fetch
 from config import CURRENCY_API
