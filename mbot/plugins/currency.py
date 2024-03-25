@@ -3,7 +3,7 @@ import logging
 
 from pyrogram.types import Message
 
-from mbot import Mbot as app
+from mbot import Mbot 
 from mbot.utils.helper.http import fetch
 from config import CURRENCY_API
 
@@ -11,7 +11,7 @@ from config import CURRENCY_API
 LOGGER = logging.getLogger("X_Mod")
 
 
-@app.on_cmd("currency")
+@Mbot.on_cmd("currency")
 async def currency(_, ctx: Message):
     if CURRENCY_API is None:
         return await ctx.reply_msg(
