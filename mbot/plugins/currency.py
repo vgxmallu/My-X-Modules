@@ -11,7 +11,7 @@ from config import CURRENCY_API
 LOGGER = logging.getLogger("X_Mod")
 
 
-@Mbot.on_cmd("currency")
+@Mbot.on_message(filters.command("currency"))
 async def currency(_, ctx: Message):
     if CURRENCY_API is None:
         return await ctx.reply_msg(
