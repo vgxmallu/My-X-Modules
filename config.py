@@ -33,3 +33,6 @@ BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", True))
 
 #RANDOM_VARIABELS
 CHROME_BIN = os.environ.get("CHROME_BIN",  "/usr/bin/google-chrome-stable")
+
+#API_MODULS
+CURRENCY_API = environ.get("CURRENCY_API")
