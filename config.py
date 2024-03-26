@@ -12,8 +12,9 @@ admins = {}
 DB_URL = os.environ.get("DB_URL", "")
 DB_NAME = os.environ.get("DB_NAME", "")
 
-#LOGS_CHANNEL
+#LOGS_CHANNEL_&_GROUP
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001784386455"))
+LOG_GROUP_ID = environ.get("LOG_GROUP_ID")
 
 #AUTHENTICATED_USERS
 AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "784589736").split())
