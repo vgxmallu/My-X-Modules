@@ -24,11 +24,11 @@ async def new_fed(self, message):
     chat = message.chat
     user = message.from_user
     if message.chat.type != ChatType.PRIVATE:
-        return await message.reply_msg(
+        return await message.reply_text(
             "Federations can only be created by privately messaging me."
         )
     if len(message.command) < 2:
-        return await message.reply_msg("Please write the name of the federation!")
+        return await message.reply_text("Please write the name of the federation!")
     fednam = message.text.split(None, 1)[1]
     if fednam != "":
         fed_id = str(uuid.uuid4())
@@ -49,11 +49,11 @@ async def new_fed(self, message):
             upsert=True,
         )
         if not x:
-            return await message.reply_msg(
+            return await message.reply_text(
                 f"Can't federate! Please contact {SUPPORT_CHAT} if the problem persist."
             )
 
-        await message.reply_msg(
+        await message.reply_text(
             f"**You have succeeded in creating a new federation!**\nName: `{fed_name}`\nID: `{fed_id}`\n\nUse the command below to join the federation:\n`/joinfed {fed_id}`",
             parse_mode=ParseMode.MARKDOWN,
         )
