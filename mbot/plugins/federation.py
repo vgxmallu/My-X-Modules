@@ -708,7 +708,7 @@ __**New Federation UnBan**__
         )
 
 
-@app.on_message(filters.command("fedstat", COMMAND_HANDLER))
+@app.on_message(filters.command("fedstat"))
 async def fedstat(client, message):
     user = message.from_user
     if message.chat.type != ChatType.PRIVATE:
