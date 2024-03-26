@@ -14,9 +14,9 @@ from mbot.utils.Database.feds_db import *
 from mbot import Mbot as app
 from config import SUDO, LOG_GROUP_ID
 #from misskaty.core.decorator.errors import capture_err
-BOT_ID = app.me.id
+BOT_ID = "7057123792"
 
-SUPPORT_CHAT = "@YasirArisM"
+SUPPORT_CHAT = "@GojoSatoru_Xbot"
 
 
 @app.on_message(filters.command("newfed"))
