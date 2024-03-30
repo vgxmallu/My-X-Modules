@@ -150,3 +150,7 @@ def extract_text_and_keyb(ikb, text: str, row_width: int = 2):
     except Exception:
         return
     return text, keyboard
+
+
+def random_string(length: int) -> str:
+    return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(length))
