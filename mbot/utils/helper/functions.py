@@ -7,6 +7,8 @@ from pyrogram import enums
 from pyrogram.types import Message
 
 from mbot import Mbot as app
+import random
+import string
 
 
 def get_urls_from_text(text: str) -> bool:
