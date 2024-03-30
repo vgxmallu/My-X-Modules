@@ -13,7 +13,7 @@ async def ocr(_, message: Message):
     """ OCR """
 
     ocr_usage = f"**Usage:** ocr. Reply to an image or just type the text after command. \n\n**Image to Text.** \n\n**Example:** /ocr type your text"
-    ocr_reply = await message.reply_text("...", quote=True)
+    ocr_reply = await message.reply_text("Your request is processing...", quote=True)
     replied_message = message.reply_to_message
 
     if len(message.command) > 1:
