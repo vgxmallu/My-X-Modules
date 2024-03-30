@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from pyrogram import Client
 import time
 from telethon import TelegramClient, events, functions, types
-from httpx import AsyncClient, Timeout
+#from httpx import AsyncClient, Timeout
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 import telebot
 
@@ -34,17 +34,7 @@ telethon_logger.addHandler(fh)
 botStartTime = time.time()
 load_dotenv()
 
-# HTTPx Async Client
-state = AsyncClient(
-    http2=True,
-    verify=False,
-    headers={
-        "Accept-Language": "en-US,en;q=0.9,id-ID;q=0.8,id;q=0.7",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edge/107.0.1418.42",
-    },
-    timeout=Timeout(20),
-)
-load_dotenv("config.env")
+
 
 # Log
 logging.basicConfig(
