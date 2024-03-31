@@ -53,7 +53,7 @@ async def start_command(bot, message):
     await message.delete()
 #==================≠
 
-@Client.on_callback_query(filters.regex("_BUTTON"))
+@Mbot.on_callback_query(filters.regex("_BUTTON"))
 async def botCallbacks(_, CallbackQuery: CallbackQuery):
 
     clicker_user_id = CallbackQuery.from_user.id
