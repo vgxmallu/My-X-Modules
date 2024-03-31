@@ -363,7 +363,7 @@ async def spotify_search(client, message):
 
 
 
-@app.on_message(filters.command("anime"))
+@app.on_message(filters.command("anime2"))
 def anime_commands_handler(client, message):
     
     sfw_description = "/cat: Sends a random catgirl image.\n"
