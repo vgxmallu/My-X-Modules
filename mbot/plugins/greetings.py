@@ -53,30 +53,26 @@ async def start_command(bot, message):
     await message.delete()
 #==================≠
 
-@Mbot.on_callback_query()
-async def cb_handler(bot, update):
-    clicker_user_id = update.from_user.id
-    if update.data == "own":
-        if clicker_user_id not in SUDO_USERS:
-            await update.answer(
-                "This is developer restricted command.", show_alert=True,
-            )
-            return
-        await update.message.edit_text(
-            text=start_cmd.format(update.from_user.first_name), #update.from_user.first_name
-            reply_markup=startbt,
-            disable_web_page_preview=True
-        )
-        await update.answer("👋Hey i am 𝗠ᴜsɪᴄ•𝕏•𝗗ʟ 🎧")
-        
-    elif update.data == "start":
-        await update.message.edit_text(
-            text=SHR_TEXT.format(update.from_user.first_name),
-            reply_markup=SHR_BUTTONS,
-            disable_web_page_preview=True
-        )
-        await update.answer("👋Hey i am 𝗠ᴜsɪᴄ•𝕏•𝗗ʟ 🎧")
+@Client.on_callback_query(filters.regex("_BUTTON"))
+async def botCallbacks(_, CallbackQuery: CallbackQuery):
 
+    clicker_user_id = CallbackQuery.from_user.id
+    user_id = CallbackQuery.message.reply_to_message.from_user.id
+
+    if clicker_user_id != user_id:
+        return await CallbackQuery.answer("This command is not initiated by you.")
+
+    if CallbackQuery.data == "own":
+        if clicker_user_id not in SUDO_USERS:
+            return await CallbackQuery.answer(
+                "You are not in the sudo user list.", show_alert=True)              
+        await CallbackQuery.edit_message_text(
+            SHR_TEXT, reply_markup=InlineKeyboardMarkup(SHR_BUTTONS))
+          
+    elif CallbackQuery.data == "start":
+        await CallbackQuery.edit_message_text(
+            start_cmd, reply_markup=InlineKeyboardMarkup(startbt))
+    
 SHR_TEXT = """
 ❤️ __Invite Your Friends To Start This Bot.__
 
