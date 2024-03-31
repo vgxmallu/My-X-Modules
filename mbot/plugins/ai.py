@@ -94,7 +94,7 @@ async def chat(app :app, message):
 async def deepchat(app: app, message):
     name = message.from_user.first_name
     try:
-        await app.send_chat_action(message.chat.id, ChatAction.TYPING)
+        #await app.send_chat_action(message.chat.id, ChatAction.TYPING)
         if len(message.command) < 2:
             await message.reply_text(f"Hello {name}\nHow can I assist you today?.")
         else:
