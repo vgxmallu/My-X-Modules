@@ -336,28 +336,28 @@ async def spotify_search(client, message):
     
     client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    
     try:
         query = " ".join(message.command[1:])
         if not query:
             await message.reply("Please provide a search query for Spotify.")
             return
 
-        await app.reply_text(message.chat.id, "Searching on Spotify...")
+        await message.reply_text("Searching on Spotify...")
 
         
         results = sp.search(q=query, limit=10)  
 
         if results:
-            await app.reply_text(message.chat.id, "Search Results from Spotify:")
+            await message.reply_text("Search Results from Spotify:")
             for idx, item in enumerate(results['tracks']['items'], start=1):
-                await app.reply_text(
-                    message.chat.id,
+                await message.reply_text(
                     f"{idx}. **Name**: `{item['name']}`\n **Artists**: `{', '.join([artist['name'] for artist in item['artists']])}`\n**Album**: `{item['album']['name']}`\n**URL**: {item['external_urls']['spotify']}"
                 )
         else:
-            await app.reply_text(message.chat.id, "No results found on Spotify.")
+            await message.reply_text(message.chat.id, "No results found on Spotify.")
     except Exception as e:
-        await app.reply_text(message.chat.id, f'An error occurred: {str(e)}')
+        await message.reply_text(message.chat.id, f'An error occurred: {str(e)}')
 
         
 
