@@ -89,7 +89,7 @@ video_ydl = yt_dlp.YoutubeDL({
 
 
 def send_message(chat_id, message):
-    app.send_message(chat_id, message)
+    message.reply_text(chat_id, message)
 
 
 def send_upload_progress(chat_id, message_id):
