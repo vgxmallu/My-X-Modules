@@ -348,16 +348,16 @@ async def spotify_search(client, message):
         results = sp.search(q=query, limit=10)  
 
         if results:
-            await app.send_message(message.chat.id, "Search Results from Spotify:")
+            await app.reply_text(message.chat.id, "Search Results from Spotify:")
             for idx, item in enumerate(results['tracks']['items'], start=1):
-                await app.send_message(
+                await app.reply_text(
                     message.chat.id,
                     f"{idx}. **Name**: `{item['name']}`\n **Artists**: `{', '.join([artist['name'] for artist in item['artists']])}`\n**Album**: `{item['album']['name']}`\n**URL**: {item['external_urls']['spotify']}"
                 )
         else:
-            await app.send_message(message.chat.id, "No results found on Spotify.")
+            await app.reply_text(message.chat.id, "No results found on Spotify.")
     except Exception as e:
-        await app.send_message(message.chat.id, f'An error occurred: {str(e)}')
+        await app.reply_text(message.chat.id, f'An error occurred: {str(e)}')
 
         
 
