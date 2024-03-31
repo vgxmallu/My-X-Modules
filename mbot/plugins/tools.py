@@ -201,14 +201,11 @@ def handle_audio_command(client, message):
     audio_filename = download_audio(url, chat_id)
 
     # mp3_filename = convert_to_mp3(audio_filename, chat_id)
-
-    send_message(chat_id, "Uploading audio...")
-    app.send_audio(chat_id, audio_filename)
-    send_message(chat_id, "Audio upload finished!")
+    reply_text("Uploading audio...")
+    message.send_audio(chat_id, audio_filename)
+    reply_text("Audio upload finished!")
     os.remove(audio_filename)  
     # os.remove(mp3_filename)
-
-
 
 @app.on_message(filters.command("vid"))
 def handle_video_command(client, message):
@@ -217,11 +214,10 @@ def handle_video_command(client, message):
 
     video_filename = download_video(url, chat_id)
 
-    send_message(chat_id, "Uploading video...")
-    app.send_video(chat_id, video_filename)
-    send_message(chat_id, "Video upload finished!")
+    reply_text(chat_id, "Uploading video...")
+    message.send_video(chat_id, video_filename)
+    reply_text("Video upload finished!")
     os.remove(video_filename)
-
 
 
 @app.on_message(filters.command("search"))
@@ -245,7 +241,7 @@ async def search_command(client, message):
 
 
 async def send_status(chat_id, status):
-    await app.send_message(chat_id, status)
+    await message.reply_text(chat_id, status)
 
 
 @app.on_message(filters.command("song"))
