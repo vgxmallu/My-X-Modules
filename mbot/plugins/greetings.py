@@ -10,7 +10,7 @@ from mbot.utils.broadcast_db.broadcast import broadcast
 from mbot.utils.broadcast_db.check_user import handle_user_status
 from mbot.utils.broadcast_db.database import Database
 from config import LOG_CHANNEL, AUTH_USERS, DB_URL, DB_NAME
-from mbot import Mbot, OWNER_ID
+from mbot import Mbot, SUDO_USERS
 
 
 db = Database(DB_URL, DB_NAME)
@@ -56,7 +56,12 @@ async def start_command(bot, message):
 @Mbot.on_callback_query()
 async def cb_handler(bot, update):
     clicker_user_id = update.from_user.id
-    if update.data == "start":
+    if update.data == "own":
+        if clicker_user_id not in SUDO_USERS:
+            await update.answer(
+                "This is developer restricted command.", show_alert=True,
+            )
+            return
         await update.message.edit_text(
             text=start_cmd.format(update.from_user.first_name), #update.from_user.first_name
             reply_markup=startbt,
@@ -64,11 +69,7 @@ async def cb_handler(bot, update):
         )
         await update.answer("👋Hey i am 𝗠ᴜsɪᴄ•𝕏•𝗗ʟ 🎧")
         
-    elif update.data == "own":
-        if clicker_user_id not in OWNER_ID:
-            return await update.answer(
-                "This is developer restricted command.", show_alert=True,
-            )
+    elif update.data == "start":
         await update.message.edit_text(
             text=SHR_TEXT.format(update.from_user.first_name),
             reply_markup=SHR_BUTTONS,
