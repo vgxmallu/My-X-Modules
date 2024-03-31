@@ -240,8 +240,8 @@ async def search_command(client, message):
         
 
 
-async def send_status(chat_id, status):
-    await message.reply_text(chat_id, status)
+async def send_status(chat_id, message):
+    await message.reply_text(chat_id, message)
 
 
 @app.on_message(filters.command("song"))
