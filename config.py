@@ -37,3 +37,7 @@ CHROME_BIN = os.environ.get("CHROME_BIN",  "/usr/bin/google-chrome-stable")
 
 #API_MODULS
 CURRENCY_API = environ.get("CURRENCY_API")
+PALM_API_KEY = getenv("PALM_API_KEY")
+DEEPAI_API_KEY = getenv("DEEPAI_API_KEY")
+NVIDIA_API_KEY = getenv("NVIDIA_API_KEY")
+CF_API_KEY = getenv("CF_API_KEY")
