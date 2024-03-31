@@ -67,16 +67,33 @@ async def cb_handler(bot, update):
     elif update.data == "own":
         if clicker_user_id not in OWNER_ID:
             return await update.answer(
-                "This is developer restricted command.", show_alert=True)
-                    
+                "This is developer restricted command.", show_alert=True,
+            )
         await update.message.edit_text(
-            text=CMDS_TEXT.format(update.from_user.first_name),
-            reply_markup=CMDS_BUTTONS,
+            text=SHR_TEXT.format(update.from_user.first_name),
+            reply_markup=SHR_BUTTONS,
             disable_web_page_preview=True
         )
         await update.answer("👋Hey i am 𝗠ᴜsɪᴄ•𝕏•𝗗ʟ 🎧")
 
+SHR_TEXT = """
+❤️ __Invite Your Friends To Start This Bot.__
 
+<blockquote>©️ @Musicx_dlbot</blockquote>
+"""
+SHR_BUTTONS = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton("📨 Telegram", url="https://t.me/share/url?url=Check+Out+@musicx_dlbot%2C+The+Telegram+Music+Bot+That+Lets+You+Search%2C+Listen+And+Download+Tens+Of+Millions+Of+Tracks+And+Albums+From+Your+Favourite+Artists%2C+In+A+Few+Seconds.++https://t.me/musicx_dlbot"),
+        InlineKeyboardButton("📨 Twitter", url="http://twitter.com/share?text=Check+Out+MusicXdl%2C+The+Telegram+Bot+That+Lets+You+Search%2C+Listen+And+Download+Tens+Of+Millions+Of+Tracks+And+Albums+From+Your+Favourite+Artists%2C+In+A+Few+Seconds.&url=https://t.me/musicx_dlbot")
+        ],[
+        InlineKeyboardButton("📨 WhatsApp", url="https://api.whatsapp.com/send?phone=&text=Check+Out+MusicXdlbot%2C+The+Telegram+Bot+That+Lets+You+Search%2C+Listen+And+Download+Tens+Of+Millions+Of+Tracks+And+Albums+From+Your+Favourite+Artists%2C+In+A+Few+Seconds.+https://t.me/musicx_dlbot"), 
+        InlineKeyboardButton("📨 Facebook", url="https://www.facebook.com/sharer/sharer.php?u=https://t.me/musicx_dlbot")
+        ],[
+        InlineKeyboardButton("⬅️", callback_data="start"),
+        InlineKeyboardButton("ㅤㅤㅤㅤ", callback_data="emt"),
+        InlineKeyboardButton("❌", callback_data="close")
+        ]]
+    ) 
 
 #==================•BROADCAST•==================
 @Mbot.on_message(filters.private & filters.command(["broadcast", "send"]))
