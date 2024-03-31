@@ -49,7 +49,6 @@ async def start_command(bot, message):
         text=start_cmd.format(message.from_user.first_name), 
         reply_markup=startbt,
     )
-    await message.reply_sticker("CAACAgUAAxkBAAEC6JVmAAETqSfP_73ZK2lF5UBjikWA4WkAApMPAAJYPgABVK6vQdKgxIntHgQ")
     await message.delete()
 #==================≠
 
