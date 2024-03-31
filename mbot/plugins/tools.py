@@ -342,7 +342,7 @@ async def spotify_search(client, message):
             await message.reply("Please provide a search query for Spotify.")
             return
 
-        await app.send_message(message.chat.id, "Searching on Spotify...")
+        await app.reply_text(message.chat.id, "Searching on Spotify...")
 
         
         results = sp.search(q=query, limit=10)  
