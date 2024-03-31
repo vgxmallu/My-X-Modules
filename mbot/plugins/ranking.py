@@ -21,7 +21,7 @@ levelnum = [2,5,15,25,35,50,70,100]
 
 @bot.on_message(
     filters.command("level", prefixes=["/", ".", "?", "-"])
-)
+    )
 async def levelsystem(_, message): 
     leveldb = MongoClient(DB_URL)
    
