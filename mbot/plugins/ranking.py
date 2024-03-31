@@ -1,5 +1,5 @@
 
-from mbot import Mbot as bot
+from mbot import Mbot
 from pyrogram import Client , filters
 from pymongo import MongoClient
 import os
@@ -19,7 +19,7 @@ levelnum = [2,5,15,25,35,50,70,100]
 
 
 
-@bot.on_message(
+@Mbot.on_message(
     filters.command("level", prefixes=["/", ".", "?", "-"])
     )
 async def levelsystem(_, message): 
@@ -44,7 +44,7 @@ async def levelsystem(_, message):
         await message.reply_text("Level System Disable")
 
 
-@bot.on_message(
+@Mbot.on_message(
     (filters.document
      | filters.text
      | filters.photo
@@ -92,7 +92,7 @@ async def level(client, message):
                   
 
                                
-@bot.on_message(
+@Mbot.on_message(
     filters.command("rank", prefixes=["/", ".", "?", "-"])
     & ~filters.private)
 async def rank(client, message):
