@@ -1,0 +1,62 @@
+import requests
+from pyrogram import Client, filters
+
+
+
+
+@Client.on_message(filters.command(["panda"]))
+async def panda(bot, message):
+    link = "https://some-random-api.com/img/panda"
+    r = requests.get(url=link).json()
+    image_s = r["link"]
+    await bot.send_photo(message.chat.id, image_s, reply_to_message_id=message.id)
+
+
+@Client.on_message(filters.command(["cat"]))
+async def cat(bot, message):
+    link = "https://some-random-api.com/img/cat"
+    r = requests.get(url=link).json()
+    image_s = r["link"]
+    await bot.send_photo(message.chat.id, image_s, reply_to_message_id=message.id)
+
+
+@Client.on_message(filters.command(["dog"]))
+async def dog(bot, message):
+    link = "https://some-random-api.com/img/dog"
+    r = requests.get(url=link).json()
+    image_s = r["link"]
+    await bot.send_photo(message.chat.id, image_s, reply_to_message_id=message.id)
+
+@Client.on_message(filters.command(["bored"]))
+async def bored(bot, message):
+    api = requests.get("https://nekos.best/api/v2/bored").json()
+    url = api["results"][0]['url']
+    await message.reply_animation(url)
+
+@Client.on_message(filters.command(["pikachu"]))
+async def pikachu(bot, message):
+    link = "https://some-random-api.com/img/pikachu"
+    r = requests.get(url=link).json()
+    url = r["link"]
+    await message.reply_animation(url)
+
+@Client.on_message(filters.command(["pat"]))
+async def pat(bot, message):
+    link = "https://some-random-api.com/animu/pat"
+    r = requests.get(url=link).json()
+    url = r["link"]
+    await message.reply_animation(url)
+
+@Client.on_message(filters.command(["wink"]))
+async def wink(bot, message):
+    link = "https://some-random-api.com/animu/wink"
+    r = requests.get(url=link).json()
+    url = r["link"]
+    await message.reply_animation(url)
+
+@Client.on_message(filters.command(["hug"]))
+async def hug(bot, message):
+    link = "https://some-random-api.com/animu/hug"
+    r = requests.get(url=link).json()
+    url = r["link"]
+    await message.reply_animation(url)
