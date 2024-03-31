@@ -46,3 +46,4 @@ qrcode
 CairoSVG
 selenium
 emojis
+openai==0.28.0
