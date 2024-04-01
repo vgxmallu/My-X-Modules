@@ -100,12 +100,12 @@ def send_upload_progress(chat_id, message_id):
     return callback
 
 
-def download_audio(url):
-    reply_message("Audio download started...")
+async def download_audio(url, message):
+    await message.reply_message("Audio download started...")
     with audio_ydl as ydl:
         info = ydl.extract_info(url)
         filename = ydl.prepare_filename(info)
-        reply_message("Audio download finished!")
+        await message.reply_message("Audio download finished!")
         return filename
 
 
