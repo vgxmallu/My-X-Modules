@@ -193,15 +193,15 @@ async def start_command(client, message):
 
 
 @app.on_message(filters.command("audio"))
-async def handle_audio_command(client, message):
+def handle_audio_command(client, message):
     url = message.text.split(" ", 1)[1]
     
-    audio_filename = await message.download_audio(url)
+    audio_filename = download_audio(url)
 
     # mp3_filename = convert_to_mp3(audio_filename, chat_id)
-    await message.reply_text("Uploading audio...")
-    await message.send_audio(audio_filename)
-    await message.reply_text("Audio upload finished!")
+    message.reply_text("Uploading audio...")
+    message.reply_audio(audio_filename)
+    message.reply_text("Audio upload finished!")
     os.remove(audio_filename)  
     # os.remove(mp3_filename)
 
