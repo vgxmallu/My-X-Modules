@@ -884,7 +884,7 @@ async def ddg_search(client, message):
         
 
 @app.on_message(filters.command("web"))
-async def web_search(client, message):
+async def web_searcfh(client, message):
     try:
         query = " ".join(message.command[1:])
         if not query:
@@ -955,7 +955,7 @@ async def image_search(client, message):
         
         
 @app.on_message(filters.command("gimg"))
-async def image_search(client, message):
+async def image_search2(client, message):
     try:
         query = " ".join(message.command[1:])
         if not query:
@@ -988,7 +988,7 @@ async def image_search(client, message):
         
         
 @app.on_message(filters.command("bimg"))
-async def image_search(client, message):
+async def image_search3(client, message):
     try:
         query = " ".join(message.command[1:])
         if not query:
@@ -1021,7 +1021,7 @@ async def image_search(client, message):
         
         
 @app.on_message(filters.command("yimg"))
-async def image_search(client, message):
+async def image_search4(client, message):
     try:
         query = " ".join(message.command[1:])
         if not query:
@@ -1054,7 +1054,7 @@ async def image_search(client, message):
         
         
 @app.on_message(filters.command("dimg"))
-async def image_search(client, message):
+async def image_search5(client, message):
     try:
         query = " ".join(message.command[1:])
         if not query:
