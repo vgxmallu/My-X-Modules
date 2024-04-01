@@ -929,7 +929,7 @@ async def image_search(client, message):
             await message.reply("Please provide a search query for images.")
             return
 
-        await app.send_message(message.chat.id, "Searching for images...")
+        await message.reply_text("Searching for images...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={WEB_ENGINE_ID}&q={query}&searchType=image&num=10")
         
@@ -938,18 +938,18 @@ async def image_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top 10 image results:")
+                await message.reply_text("Top 10 image results:")
                 for index, item in enumerate(items[:10], start=1):
                     image_url = item.get('link')
 
-                    await app.send_photo(message.chat.id, photo=image_url)
+                    await message.reply_photo(image_url)
             else:
-                await app.send_message(message.chat.id, "No image results found.")
+                await message.reply_text("No image results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch image results.")
+            await message.reply_text("Failed to fetch image results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
 
 
         
@@ -962,7 +962,7 @@ async def image_search(client, message):
             await message.reply("Please provide a search query for images.")
             return
 
-        await app.send_message(message.chat.id, "Searching for images...")
+        await message.reply_text("Searching for images...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={SEARCH_ENGINE_ID}&q={query}&searchType=image&num=10")
         
@@ -971,18 +971,18 @@ async def image_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top 10 image results:")
+                await message.reply_text("Top 10 image results:")
                 for index, item in enumerate(items[:10], start=1):
                     image_url = item.get('link')
 
-                    await app.send_photo(message.chat.id, photo=image_url)
+                    await message.reply_photo(image_url)
             else:
-                await app.send_message(message.chat.id, "No image results found.")
+                await message.reply_text("No image results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch image results.")
+            await message.reply_text("Failed to fetch image results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
         
         
         
@@ -995,7 +995,7 @@ async def image_search(client, message):
             await message.reply("Please provide a search query for images.")
             return
 
-        await app.send_message(message.chat.id, "Searching for images...")
+        await message.reply_text("Searching for images...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={BING_ENGINE_ID}&q={query}&searchType=image&num=10")
         
@@ -1004,18 +1004,18 @@ async def image_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top 10 image results:")
+                await message.reply_text("Top 10 image results:")
                 for index, item in enumerate(items[:10], start=1):
                     image_url = item.get('link')
 
-                    await app.send_photo(message.chat.id, photo=image_url)
+                    await message.reply_photo(image_url)
             else:
-                await app.send_message(message.chat.id, "No image results found.")
+                await message.reply_text("No image results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch image results.")
+            await message.reply_text("Failed to fetch image results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
 
 
         
@@ -1028,7 +1028,7 @@ async def image_search(client, message):
             await message.reply("Please provide a search query for images.")
             return
 
-        await app.send_message(message.chat.id, "Searching for images...")
+        await message.reply_text("Searching for images...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={YANDEX_ENGINE_ID}&q={query}&searchType=image&num=10")
         
@@ -1037,18 +1037,18 @@ async def image_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top 10 image results:")
+                await message.reply_text("Top 10 image results:")
                 for index, item in enumerate(items[:10], start=1):
                     image_url = item.get('link')
 
-                    await app.send_photo(message.chat.id, photo=image_url)
+                    await message.reply_photo(image_url)
             else:
-                await app.send_message(message.chat.id, "No image results found.")
+                await message.reply_text("No image results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch image results.")
+            await message.reply_text("Failed to fetch image results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
 
 
         
@@ -1061,7 +1061,7 @@ async def image_search(client, message):
             await message.reply("Please provide a search query for images.")
             return
 
-        await app.send_message(message.chat.id, "Searching for images...")
+        await message.reply_text("Searching for images...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={DDG_ENGINE_ID}&q={query}&searchType=image&num=10")
         
@@ -1070,18 +1070,18 @@ async def image_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top 10 image results:")
+                await message.reply_text("Top 10 image results:")
                 for index, item in enumerate(items[:10], start=1):
                     image_url = item.get('link')
 
-                    await app.send_photo(message.chat.id, photo=image_url)
+                    await message.reply_photo(image_url)
             else:
-                await app.send_message(message.chat.id, "No image results found.")
+                await message.reply_text("No image results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch image results.")
+            await message.reply_text("Failed to fetch image results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
 
 
         
@@ -1109,7 +1109,7 @@ async def handle_ping_command(client, message):
     start_time = time.time() 
 
 
-    sent_message = await app.send_message(message.chat.id, "Pong! I'm alive and responsive.")
+    sent_message = await message.reply_text("Pong! I'm alive and responsive.")
 
     end_time = time.time()  
     elapsed_time = round((end_time - start_time) * 1000, 2)  
