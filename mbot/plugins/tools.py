@@ -100,24 +100,6 @@ def send_upload_progress(chat_id, message_id):
     return callback
 
 
-def download_audio(url, message):
-    message.reply_text("Audio download started...")
-    with audio_ydl as ydl:
-        info = ydl.extract_info(url)
-        filename = ydl.prepare_filename(info)
-        message.reply_text("Audio download finished!")
-        return filename
-
-
-def download_video(url,chat_id):
-    send_message(chat_id, "Video download started...")
-    with video_ydl as ydl:
-        info = ydl.extract_info(url)
-        filename = ydl.prepare_filename(info)
-        send_message(chat_id, "Video download finished!")
-        return filename
-
-
 # Not used but kept here for future purposes
 def convert_to_mp3(filename,chat_id):
     if filename.endswith('.mp3'):
@@ -190,8 +172,15 @@ async def start_command(client, message):
     await message.reply_text('/web <query> - Searches the entire web and returns top 10 results\n/google <query> - Searches Google and returns top 10 results\n/bing <query> - Searches Bing and returns top 10 results\n/yandex <query> - Searches Yandex and returns top 10 results\n/ddg <query> - Searches Duck Duck Go and returns top 10 results\n/img <query> - Searches the entire web and returns top 10 images.\n/gimg <query> - Searches Google and returns top 10 images\n/bimg <query> - Searches Bing and returns top 10 images\n/yimg <query> - Searches Yandex and returns top 10 images\n/dimg <query> - Searches Duck DUck Go and returns top 10 images\n')
 
 
-
-
+#========================
+def download_audio(url, message):
+    message.reply_text("Audio download started...")
+    with audio_ydl as ydl:
+        info = ydl.extract_info(url)
+        filename = ydl.prepare_filename(info)
+        message.reply_text("Audio download finished!")
+        return filename
+        
 @app.on_message(filters.command("audio"))
 def handle_audio_command(client, message):
     url = message.text.split(" ", 1)[1]
@@ -205,6 +194,14 @@ def handle_audio_command(client, message):
     os.remove(audio_filename)  
     # os.remove(mp3_filename)
 
+#=================
+def download_video(url,chat_id):
+    send_message(chat_id, "Video download started...")
+    with video_ydl as ydl:
+        info = ydl.extract_info(url)
+        filename = ydl.prepare_filename(info)
+        send_message(chat_id, "Video download finished!")
+        return filename
 @app.on_message(filters.command("vid"))
 def handle_video_command(client, message):
     url = message.text.split(" ", 1)[1]
@@ -217,8 +214,8 @@ def handle_video_command(client, message):
     reply_text("Video upload finished!")
     os.remove(video_filename)
 
-
-@app.on_message(filters.command("search"))
+#=============°===
+@app.on_message(filters.command("ytsearch"))
 async def search_command(client, message):
     try:
         query = message.text.split(" ", 1)[1]
@@ -453,17 +450,17 @@ def handle_meme_command(client, message):
 
             # send_message(message.chat.id, "Uploading meme...")
             if file_extension in ['png', 'jpg', 'gif']:
-                app.send_photo(message.chat.id, file_name, caption=title)
+                message.reply_photo(file_name, caption=title)
             elif file_extension in ['mp4', 'gifv']:
-                app.send_video(message.chat.id, file_name, caption=title)
+                message.reply_video(file_name, caption=title)
             # send_message(message.chat.id, "Meme upload finished!")
 
             os.remove(file_name)
 
         else:
-            send_message(message.chat.id, "Failed to download the meme.")
+            reply_text(message.chat.id, "Failed to download the meme.")
     else:
-        send_message(message.chat.id, "Failed to fetch the meme from the API.")
+        reply_text(message.chat.id, "Failed to fetch the meme from the API.")
 
 
 
