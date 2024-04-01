@@ -692,7 +692,7 @@ async def clone_repo(client, message):
         
         if response.status_code == 200:
             
-            await app.send_document(message.chat.id, document=response.content, file_name="repository.zip")
+            await message.reply_document(document=response.content, file_name="repository.zip")
             await message.reply("Repository zip file sent!")
         else:
             await message.reply("Failed to fetch the repository zip file.")
@@ -711,7 +711,7 @@ async def search_github_repos(client, message):
             await message.reply("Please provide a search query for repositories.")
             return
 
-        await app.send_message(message.chat.id, "Searching for GitHub repositories...")
+        await message.reply_text("Searching for GitHub repositories...")
 
         # GitHub API search request
         response = requests.get(f"https://api.github.com/search/repositories?q={query}&per_page=10")
@@ -720,23 +720,21 @@ async def search_github_repos(client, message):
             repos = data.get('items', [])
 
             if repos:
-                await app.send_message(message.chat.id, "Top 10 GitHub Repositories:")
+                await message.reply_text("Top 10 GitHub Repositories:")
                 for index, repo in enumerate(repos[:10], start=1):
                     repo_name = repo.get('full_name')
                     stars = repo.get('stargazers_count')
                     forks = repo.get('forks_count')
                     repo_url = repo.get('html_url')
 
-                    await app.send_message(
-                        message.chat.id,
-                        f"{index}.  **Name**: `{repo_name}`\n **Stars**: `{stars}`\n**Forks**: `{forks}`\n**URL**: {repo_url}"
-                    )
+                    await message.reply_text(f"{index}.  **Name**: `{repo_name}`\n **Stars**: `{stars}`\n**Forks**: `{forks}`\n**URL**: {repo_url}")
+                    
             else:
-                await app.send_message(message.chat.id, "No repositories found for the query.")
+                await message.reply_text("No repositories found for the query.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch repositories.")
+            await message.reply_text("Failed to fetch repositories.")
     except Exception as e:
-        await app.send_message(message.chat.id, f'An error occurred: {str(e)}')
+        await message.reply_text(f'An error occurred: {str(e)}')
 
 
 
@@ -749,7 +747,7 @@ async def google_search(client, message):
             await message.reply("Please provide a search query.")
             return
 
-        await app.send_message(message.chat.id, "Searching on Google...")
+        await message.reply_text("Searching on Google...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={SEARCH_ENGINE_ID}&q={query}")
         
@@ -758,24 +756,23 @@ async def google_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top search results:")
+                await message.reply_text("Top search results:")
                 for index, item in enumerate(items[:10], start=1):
                     title = f"[{item.get('title')}]({item.get('link')})"
                     snippet = item.get('snippet')
 
 
-                    await app.send_message(
-                        message.chat.id,
+                    await message.reply_text(
                         f"{index}. {title}\n\n{snippet}",
                         disable_web_page_preview=False
                     )
             else:
-                await app.send_message(message.chat.id, "No search results found.")
+                await message.reply_text("No search results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch search results.")
+            await message.reply_text("Failed to fetch search results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
         
         
 
@@ -787,7 +784,7 @@ async def bing_search(client, message):
             await message.reply("Please provide a search query.")
             return
 
-        await app.send_message(message.chat.id, "Searching on Bing...")
+        await message.reply_text("Searching on Bing...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={BING_ENGINE_ID}&q={query}")
         
@@ -796,23 +793,22 @@ async def bing_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top search results:")
+                await message.reply_text("Top search results:")
                 for index, item in enumerate(items[:10], start=1):
                     title = f"[{item.get('title')}]({item.get('link')})"
                     snippet = item.get('snippet')
 
-                    await app.send_message(
-                        message.chat.id,
+                    await message.reply_text(
                         f"{index}. {title}\n\n{snippet}",
                         disable_web_page_preview=False
                     )
             else:
-                await app.send_message(message.chat.id, "No search results found.")
+                await message.reply_text("No search results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch search results.")
+            await message.reply_text("Failed to fetch search results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
         
         
         
@@ -824,7 +820,7 @@ async def yandex_search(client, message):
             await message.reply("Please provide a search query.")
             return
 
-        await app.send_message(message.chat.id, "Searching on Yandex...")
+        await message.reply_text("Searching on Yandex...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={YANDEX_ENGINE_ID}&q={query}")
         
@@ -833,23 +829,22 @@ async def yandex_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top search results:")
+                await message.reply_text("Top search results:")
                 for index, item in enumerate(items[:10], start=1):
                     title = f"[{item.get('title')}]({item.get('link')})"
                     snippet = item.get('snippet')
 
-                    await app.send_message(
-                        message.chat.id,
+                    await message.reply_text(
                         f"{index}. {title}\n\n{snippet}",
                         disable_web_page_preview=False
                     )
             else:
-                await app.send_message(message.chat.id, "No search results found.")
+                await message.reply_text("No search results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch search results.")
+            await message.reply_text("Failed to fetch search results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
 
 
 @app.on_message(filters.command("ddg"))
@@ -860,7 +855,7 @@ async def ddg_search(client, message):
             await message.reply("Please provide a search query.")
             return
 
-        await app.send_message(message.chat.id, "Searching on DuckDuckGo...")
+        await message.reply_text("Searching on DuckDuckGo...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={DDG_ENGINE_ID}&q={query}")
         
@@ -869,23 +864,22 @@ async def ddg_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top search results:")
+                await message.reply_text("Top search results:")
                 for index, item in enumerate(items[:10], start=1):
                     title = f"[{item.get('title')}]({item.get('link')})"
                     snippet = item.get('snippet')
 
-                    await app.send_message(
-                        message.chat.id,
+                    await message.reply_text(
                         f"{index}. {title}\n\n{snippet}",
                         disable_web_page_preview=False
                     )
             else:
-                await app.send_message(message.chat.id, "No search results found.")
+                await message.reply_text("No search results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch search results.")
+            await message.reply_text("Failed to fetch search results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
 
         
 
@@ -897,7 +891,7 @@ async def web_search(client, message):
             await message.reply("Please provide a search query.")
             return
 
-        await app.send_message(message.chat.id, "Searching the web...")
+        await message.reply_text("Searching the web...")
 
         response = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GAPI_KEY}&cx={WEB_ENGINE_ID}&q={query}")
         
@@ -906,23 +900,22 @@ async def web_search(client, message):
             items = data.get('items', [])
 
             if items:
-                await app.send_message(message.chat.id, "Top search results:")
+                await message.reply_text("Top search results:")
                 for index, item in enumerate(items[:10], start=1):
                     title = f"[{item.get('title')}]({item.get('link')})"
                     snippet = item.get('snippet')
 
-                    await app.send_message(
-                        message.chat.id,
+                    await message.reply_text(
                         f"{index}. {title}\n\n{snippet}",
                         disable_web_page_preview=False
                     )
             else:
-                await app.send_message(message.chat.id, "No search results found.")
+                await message.reply_text("No search results found.")
         else:
-            await app.send_message(message.chat.id, "Failed to fetch search results.")
+            await message.reply_text("Failed to fetch search results.")
             
     except Exception as e:
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        await message.reply_text(f"An error occurred: {str(e)}")
 
 
 
