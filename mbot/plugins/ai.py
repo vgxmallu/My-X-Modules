@@ -146,7 +146,7 @@ async def deepchat(app: app, message):
 
 # -----------------------------------------------------------------------------------
 
-@app.on_message(filters.command(["bing"],  prefixes=["+", ".", "/", "-", "?", "$", "#", "&"]))
+@app.on_message(filters.command(["bing2"],  prefixes=["+", ".", "/", "-", "?", "$", "#", "&"]))
 async def bing_search(app, message):
     try:
         if len(message.command) == 1:
