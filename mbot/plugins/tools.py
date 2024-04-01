@@ -154,11 +154,11 @@ async def send_status(chat_id, message):
     await message.reply_text(chat_id, message)
     
 def download_audio(url):
-    send_message("Audio download started...")
+    reply_text("Audio download started...")
     with audio_ydl as ydl:
         info = ydl.extract_info(url)
         filename = ydl.prepare_filename(info)
-        send_message("Audio download finished!")
+        reply_text("Audio download finished!")
         return filename
 
 
