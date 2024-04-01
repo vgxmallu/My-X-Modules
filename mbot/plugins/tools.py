@@ -537,7 +537,7 @@ def handle_multiple_reddit_command(client, message):
                 message.reply_photo(file_name, caption=title)
             elif file_extension in ['mp4', 'gifv']:
                 message.reply_video(file_name, caption=title)
-               send_message("upload finished!")
+                message.reply_text("upload finished!")
 
             os.remove(file_name)
 
