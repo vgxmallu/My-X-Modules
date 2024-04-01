@@ -100,7 +100,7 @@ def send_upload_progress(chat_id, message_id):
     return callback
 
 
-def download_audio(url, message):
+def download_audio(url):
     message.reply_text("Audio download started...")
     with audio_ydl as ydl:
         info = ydl.extract_info(url)
