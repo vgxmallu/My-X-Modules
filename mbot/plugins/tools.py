@@ -149,70 +149,13 @@ def extract_youtube_music_url(output):
                 break
 
     return youtube_music_url
-
-
-@app.on_message(filters.command("st"))
-async def start_command(client, message):
-    await message.reply_text('**Hello, I am a bot that can perform various tasks. Use these commands to know my functionalities**:\n\n/general - __To get the most useful commands__\n/anime - __To get all anime related commands__\n/subreddit - __to get all reddit related commands__\n/browse - __To get all the web searching commands__')
-
-
-@app.on_message(filters.command("general"))
-async def start_command(client, message):
-    await message.reply_text('**Audio** :\n/audio <url>  - Download an audio from the given URL\n/song <song-name> - Downloads the song from YouTube and sends it.\n/spotdl <spotify-url>  - searches spotify song on yt music and sends it.\n/spotify <query> - Searches spotify and returns top 10 results\n/search <query>  - Search YouTube and return the top 5 results\n\n**Video** :\n/vid <url>  - Download a video from the given URL\n/vpex <query> - sends 5 stocks vids/gifs from vimeo based on query\n/search <query> - Search YouTube and return the top 5 results\n\n**Images** :\n/unsplash <keywords>  - Searches Unsplash for an image based on the query\n/ipex <query>  - sends 5 stock images based on query\n\n**Github** :\n/clone <github-repo-url>  - Clones a github repo and sends it.\n/repo <query> - Searches github and return top 10 repos based on query.\n\n**Torrents** :\n/pbay <query>  - Searches the piratebay and returns torrents.')
-
-
-
-@app.on_message(filters.command("subreddit"))
-async def start_command(client, message):
-    await message.reply_text('/meme - Fetches a random meme from a random subreddit\n/manymeme - An extension of `/meme` that fetches 10 memes at once.\n/reddit - fetches random (mostly nsfw) things from reddit.\n/mreddit - An extension of `/reddit` for fetching 10 results at once.')
-
-
-@app.on_message(filters.command("browse"))
-async def start_command(client, message):
-    await message.reply_text('/web <query> - Searches the entire web and returns top 10 results\n/google <query> - Searches Google and returns top 10 results\n/bing <query> - Searches Bing and returns top 10 results\n/yandex <query> - Searches Yandex and returns top 10 results\n/ddg <query> - Searches Duck Duck Go and returns top 10 results\n/img <query> - Searches the entire web and returns top 10 images.\n/gimg <query> - Searches Google and returns top 10 images\n/bimg <query> - Searches Bing and returns top 10 images\n/yimg <query> - Searches Yandex and returns top 10 images\n/dimg <query> - Searches Duck DUck Go and returns top 10 images\n')
-
+    
+async def send_status(chat_id, message):
+    await message.reply_text(chat_id, message)
+    
 
 #========================
-def download_audio(url, message):
-    message.reply_text("Audio download started...")
-    with audio_ydl as ydl:
-        info = ydl.extract_info(url)
-        filename = ydl.prepare_filename(info)
-        message.reply_text("Audio download finished!")
-        return filename
-        
-@app.on_message(filters.command("audio"))
-def handle_audio_command(client, message):
-    url = message.text.split(" ", 1)[1]
-    
-    audio_filename = message.download_audio(url)
 
-    # mp3_filename = convert_to_mp3(audio_filename, chat_id)
-    message.reply_text("Uploading audio...")
-    message.reply_audio(audio_filename)
-    message.reply_text("Audio upload finished!")
-    os.remove(audio_filename)  
-    # os.remove(mp3_filename)
-
-#=================
-def download_video(url,chat_id):
-    send_message(chat_id, "Video download started...")
-    with video_ydl as ydl:
-        info = ydl.extract_info(url)
-        filename = ydl.prepare_filename(info)
-        send_message(chat_id, "Video download finished!")
-        return filename
-@app.on_message(filters.command("vid"))
-def handle_video_command(client, message):
-    url = message.text.split(" ", 1)[1]
-    chat_id = message.chat.id
-
-    video_filename = download_video(url, chat_id)
-
-    reply_text(chat_id, "Uploading video...")
-    message.send_video(chat_id, video_filename)
-    reply_text("Video upload finished!")
-    os.remove(video_filename)
 
 #=============°===
 @app.on_message(filters.command("ytsearch"))
@@ -234,16 +177,11 @@ async def search_command(client, message):
         
         
 
-
-async def send_status(chat_id, message):
-    await message.reply_text(chat_id, message)
-
-
 @app.on_message(filters.command("song"))
 async def song_command(client, message):
     try:
         chat_id = message.chat.id
-        await send_status(chat_id, "Searching for the song...")
+        await message.reply_text(chat_id, "Searching for the song...")
         query = message.text.split(" ", 1)[1]
         results = search_youtube(query)
 
@@ -252,7 +190,7 @@ async def song_command(client, message):
             audio_url = top_result["url"]
 
             try:
-                await send_status(chat_id, "Song Found! Starting download...")
+                await message.reply_text(chat_id, "Song Found! Starting download...")
                 filename = download_audio(audio_url, chat_id)
 
                 if filename:
@@ -262,23 +200,23 @@ async def song_command(client, message):
 
                     # if mp3_filename:
                     chat_id = message.chat.id
-                    await send_status(chat_id, "Uploading audio...")
+                    await message.reply_text(chat_id, "Uploading audio...")
 
-                    await app.send_audio(chat_id, filename)
+                    await message.reply_audio(chat_id, filename)
 
-                    await send_status(chat_id, "Audio upload finished!")
+                    await message.reply_text(chat_id, "Audio upload finished!")
                     os.remove(filename)
                         # os.remove(mp3_filename)
                     # else:
                     #     await send_status(chat_id, "Error: Unsupported file format")
                 else:
-                    await send_status(chat_id, "Error: Unsupported file format")
+                    await message.reply_text(chat_id, "Error: Unsupported file format")
             except Exception as e:
-                await send_status(chat_id, f"Error: {str(e)}")
+                await message.reply_text(chat_id, f"Error: {str(e)}")
         else:
-            await send_status(chat_id, "No results found for the provided query.")
+            await message.reply_text(chat_id, "No results found for the provided query.")
     except Exception as e:
-        await send_status(chat_id, f"Error: {str(e)}")
+        await message.reply_text(chat_id, f"Error: {str(e)}")
 
 
 
@@ -290,7 +228,7 @@ async def spotdl_command(client, message):
             await message.reply("Please provide a Spotify or YouTube link.")
             return
 
-        await app.send_message(message.chat.id, "Downloading...")
+        await message.message.reply_text(message.chat.id, "Downloading...")
 
         process = subprocess.Popen(
             f"python -m spotdl {query}",
@@ -303,7 +241,7 @@ async def spotdl_command(client, message):
         output, error = process.communicate()
 
         if error:
-            await app.send_message(message.chat.id, f"Error: {error}")
+            await message.reply_text(message.chat.id, f"Error: {error}")
         else:
             file_name = ""
             for filename in os.listdir("."):
@@ -312,14 +250,14 @@ async def spotdl_command(client, message):
                     break
 
             if file_name:
-                await app.send_message(message.chat.id, "Download Finished!, Uploading...")
+                await message.reply_text(message.chat.id, "Download Finished!, Uploading...")
                 with open(file_name, "rb") as file:
-                    await app.send_audio(message.chat.id, file)
+                    await message.reply_audio(message.chat.id, file)
                 os.remove(file_name)  # Delete the file after sending
-                await app.send_message(message.chat.id, "Downloaded and sent!")
+                await message.reply_text(message.chat.id, "Downloaded and sent!")
 
     except Exception as e:
-        await send_status(message.chat.id, f"Error: {str(e)}")
+        await message.reply_text(message.chat.id, f"Error: {str(e)}")
 
 
 @app.on_message(filters.command("spotify"))
