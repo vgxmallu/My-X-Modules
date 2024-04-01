@@ -185,7 +185,7 @@ def download_audio(url, message):
 def handle_audio_command(client, message):
     url = message.text.split(" ", 1)[1]
     
-    audio_filename = download_audio(url)
+    audio_filename = message.download_audio(url)
 
     # mp3_filename = convert_to_mp3(audio_filename, chat_id)
     message.reply_text("Uploading audio...")
