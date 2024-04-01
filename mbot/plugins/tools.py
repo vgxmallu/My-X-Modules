@@ -495,7 +495,7 @@ def handle_reddit_command(client, message):
         else:
             message.reply_text("Failed to download the meme.")
     else:
-        message.reply_text(l"Failed to fetch the meme from the API.")
+        message.reply_text("Failed to fetch the meme from the API.")
 
 @app.on_message(filters.command("mreddit"))
 def handle_multiple_reddit_command(client, message):
