@@ -153,7 +153,22 @@ def extract_youtube_music_url(output):
 async def send_status(chat_id, message):
     await message.reply_text(chat_id, message)
     
+def download_audio(url):
+    send_message("Audio download started...")
+    with audio_ydl as ydl:
+        info = ydl.extract_info(url)
+        filename = ydl.prepare_filename(info)
+        send_message("Audio download finished!")
+        return filename
 
+
+def download_video(url,chat_id):
+    send_message(chat_id, "Video download started...")
+    with video_ydl as ydl:
+        info = ydl.extract_info(url)
+        filename = ydl.prepare_filename(info)
+        send_message(chat_id, "Video download finished!")
+        return filename
 #========================
 
 
@@ -175,13 +190,12 @@ async def search_command(client, message):
     except Exception as e:
         await message.reply_text(f"Error: {str(e)}")
         
-        
-
+       
 @app.on_message(filters.command("song"))
 async def song_command(client, message):
     try:
-        chat_id = message.chat.id
-        await message.reply_text(chat_id, "Searching for the song...")
+        #chat_id = message.chat.id
+        await message.reply_text("Searching for the song...")
         query = message.text.split(" ", 1)[1]
         results = search_youtube(query)
 
@@ -190,8 +204,8 @@ async def song_command(client, message):
             audio_url = top_result["url"]
 
             try:
-                await message.reply_text(chat_id, "Song Found! Starting download...")
-                filename = download_audio(audio_url, chat_id)
+                await message.reply_text("Song Found! Starting download...")
+                filename = download_audio(audio_url)
 
                 if filename:
                     # await send_status(chat_id, "Download complete. Converting to MP3...")
@@ -199,24 +213,24 @@ async def song_command(client, message):
                     # mp3_filename = convert_to_mp3(filename,chat_id)
 
                     # if mp3_filename:
-                    chat_id = message.chat.id
-                    await message.reply_text(chat_id, "Uploading audio...")
+                    #chat_id = message.chat.id
+                    await message.reply_text("Uploading audio...")
 
-                    await message.reply_audio(chat_id, filename)
+                    await message.reply_audio(filename)
 
-                    await message.reply_text(chat_id, "Audio upload finished!")
+                    await message.reply_text("Audio upload finished!")
                     os.remove(filename)
                         # os.remove(mp3_filename)
                     # else:
                     #     await send_status(chat_id, "Error: Unsupported file format")
                 else:
-                    await message.reply_text(chat_id, "Error: Unsupported file format")
+                    await message.reply_text("Error: Unsupported file format")
             except Exception as e:
-                await message.reply_text(chat_id, f"Error: {str(e)}")
+                await message.reply_text(f"Error: {str(e)}")
         else:
-            await message.reply_text(chat_id, "No results found for the provided query.")
+            await message.reply_text("No results found for the provided query.")
     except Exception as e:
-        await message.reply_text(chat_id, f"Error: {str(e)}")
+        await message.reply_text(f"Error: {str(e)}")
 
 
 
@@ -228,7 +242,7 @@ async def spotdl_command(client, message):
             await message.reply("Please provide a Spotify or YouTube link.")
             return
 
-        await message.message.reply_text(message.chat.id, "Downloading...")
+        await message.message.reply_text("Downloading...")
 
         process = subprocess.Popen(
             f"python -m spotdl {query}",
@@ -241,7 +255,7 @@ async def spotdl_command(client, message):
         output, error = process.communicate()
 
         if error:
-            await message.reply_text(message.chat.id, f"Error: {error}")
+            await message.reply_text(f"Error: {error}")
         else:
             file_name = ""
             for filename in os.listdir("."):
@@ -250,14 +264,14 @@ async def spotdl_command(client, message):
                     break
 
             if file_name:
-                await message.reply_text(message.chat.id, "Download Finished!, Uploading...")
+                await message.reply_text("Download Finished!, Uploading...")
                 with open(file_name, "rb") as file:
-                    await message.reply_audio(message.chat.id, file)
+                    await message.reply_audio(file)
                 os.remove(file_name)  # Delete the file after sending
-                await message.reply_text(message.chat.id, "Downloaded and sent!")
+                await message.reply_text("Downloaded and sent!")
 
     except Exception as e:
-        await message.reply_text(message.chat.id, f"Error: {str(e)}")
+        await message.reply_text(f"Error: {str(e)}")
 
 
 @app.on_message(filters.command("spotify"))
@@ -284,9 +298,9 @@ async def spotify_search(client, message):
                     f"{idx}. **Name**: `{item['name']}`\n **Artists**: `{', '.join([artist['name'] for artist in item['artists']])}`\n**Album**: `{item['album']['name']}`\n**URL**: {item['external_urls']['spotify']}"
                 )
         else:
-            await message.reply_text(message.chat.id, "No results found on Spotify.")
+            await message.reply_text("No results found on Spotify.")
     except Exception as e:
-        await message.reply_text(message.chat.id, f'An error occurred: {str(e)}')
+        await message.reply_text(f'An error occurred: {str(e)}')
 
         
 
@@ -306,7 +320,7 @@ def anime_commands_handler(client, message):
     quotes_description += "/mquote: Sends multiple anime quotes."
 
     text = f"{sfw_description}\n\n{quotes_description}"
-    client.send_message(message.chat.id, text)
+    client.send_message(text)
 
 
 
@@ -317,11 +331,11 @@ def get_random_quote(client, message):
         if response.status_code == 200:
             quote = response.json()
             formatted_quote = f"**Anime**: `{quote['anime']}`\n**Character**: `{quote['character']}`\n**Quote**: __\"{quote['quote']}\"__"
-            app.send_message(message.chat.id, formatted_quote)
+            message.reply_text(formatted_quote)
         else:
-            app.send_message(message.chat.id, "Failed to fetch a quote. Try again later.")
+            message.reply_text("Failed to fetch a quote. Try again later.")
     except Exception as e:
-        app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        message.reply_text(f"An error occurred: {str(e)}")
 
 
 
@@ -332,11 +346,11 @@ def get_many_quotes(client, message):
         if response.status_code == 200:
             quotes = response.json()
             formatted_quotes = "\n\n".join([f"**Anime**: `{quote['anime']}`\n**Character**: `{quote['character']}`\n**Quote**: __\"{quote['quote']}\"__" for quote in quotes])
-            app.send_message(message.chat.id, formatted_quotes)
+            message.reply_text(formatted_quotes)
         else:
-            app.send_message(message.chat.id, "Failed to fetch quotes. Try again later.")
+            message.reply_text("Failed to fetch quotes. Try again later.")
     except Exception as e:
-        app.send_message(message.chat.id, f"An error occurred: {str(e)}")
+        message.reply_text(f"An error occurred: {str(e)}")
         
 
 
@@ -345,24 +359,22 @@ def image_fetch_handler(client, message):
     command = message.command[0]
     image_url = fetch_image(command, "sfw") 
     if image_url:
-        client.send_photo(message.chat.id, photo=image_url)
+        client.reply_photo(photo=image_url)
     else:
-        client.send_message(message.chat.id, "Failed to fetch the image.")
+        client.reply_text("Failed to fetch the image.")
 
 
 
 
-@app.on_message(filters.command("cat"))
+@app.on_message(filters.command("cat2"))
 async def catgirl_command(client, message):
     try:
         
         image = api.get_random_image(categories=["catgirl"])
 
-        await app.send_photo(message.chat.id, photo=image.url)
+        await message.reply_photo(image.url)
     except Exception as e:
-        await app.send_message(message.chat.id, f'An error occurred: {str(e)}')
-
-
+        await message.reply_text(f'An error occurred: {str(e)}')
 
 
 @app.on_message(filters.command("meme"))
@@ -370,7 +382,7 @@ def handle_meme_command(client, message):
     api_url = "https://meme-api.com/gimme"
 
     response = requests.get(api_url)
-
+    message.reply_text("Downloading...")
     if response.status_code == 200:
         meme_data = response.json()
 
@@ -391,18 +403,14 @@ def handle_meme_command(client, message):
                 message.reply_photo(file_name, caption=title)
             elif file_extension in ['mp4', 'gifv']:
                 message.reply_video(file_name, caption=title)
-            # send_message(message.chat.id, "Meme upload finished!")
+                message.reply_text("Meme upload finished!")
 
             os.remove(file_name)
 
         else:
-            reply_text(message.chat.id, "Failed to download the meme.")
+            reply_text("Failed to download the meme.")
     else:
-        reply_text(message.chat.id, "Failed to fetch the meme from the API.")
-
-
-
-
+        reply_text("Failed to fetch the meme from the API.")
 
 @app.on_message(filters.command("manymeme"))
 def handle_many_meme_command(client, message):
@@ -410,7 +418,7 @@ def handle_many_meme_command(client, message):
     api_url = "https://meme-api.com/gimme/5"
 
     response = requests.get(api_url)
-
+    message.reply_text("Downloading...")
     if response.status_code == 200:
         memes_data = response.json()
 
@@ -433,24 +441,23 @@ def handle_many_meme_command(client, message):
 
                 # send_message(message.chat.id, "Uploading meme...")
                 if file_extension in ['png', 'jpg', 'gif']:
-                    app.send_photo(message.chat.id, file_name, caption=title)
+                    message.reply_photo(file_name, caption=title)
                 elif file_extension in ['mp4', 'gifv']:
-                    app.send_video(message.chat.id, file_name, caption=title)
-                # send_message(message.chat.id, "Meme upload finished!")
+                    message.reply_video(file_name, caption=title)
+                    message.reply_text("Meme upload finished!")
                 os.remove(file_name)
 
             else:
-                send_message(message.chat.id, f"Failed to download the meme '{title}'.")
+                message.reply_text(f"Failed to download the meme '{title}'.")
 
     else:
-        send_message(message.chat.id, "Failed to fetch memes from the API.")
-
+        message.reply_text("Failed to fetch memes from the API.")
 
 
 
 @app.on_message(filters.command("reddit"))
 def handle_reddit_command(client, message):
-
+    message.reply_text("Downloading...")
     # Specify any subreddits of your choice
     subreddits = ["wholesomememes", "memes", "funny", "aww"] 
 
@@ -460,7 +467,7 @@ def handle_reddit_command(client, message):
     api_url = f"https://meme-api.com/gimme/{selected_subreddit}"
 
     response = requests.get(api_url)
-
+    
     if response.status_code == 200:
         meme_data = response.json()
 
@@ -478,21 +485,17 @@ def handle_reddit_command(client, message):
 
             # send_message(message.chat.id, "Uploading meme...")
             if file_extension in ['png', 'jpg', 'gif']:
-                app.send_photo(message.chat.id, file_name, caption=title)
+                message.reply_photo(file_name, caption=title)
             elif file_extension in ['mp4', 'gifv']:
-                app.send_video(message.chat.id, file_name, caption=title)
-            # send_message(message.chat.id, "Meme upload finished!")
+                message.reply_video(file_name, caption=title)
+                message.reply_text("upload finished!")
 
             os.remove(file_name)
 
         else:
-            send_message(message.chat.id, "Failed to download the meme.")
+            message.reply_text("Failed to download the meme.")
     else:
-        send_message(message.chat.id, "Failed to fetch the meme from the API.")
-
-
-
-
+        message.reply_text(l"Failed to fetch the meme from the API.")
 
 @app.on_message(filters.command("mreddit"))
 def handle_multiple_reddit_command(client, message):
@@ -502,7 +505,7 @@ def handle_multiple_reddit_command(client, message):
     memes_to_fetch = 5 #change according to your needs
 
     all_memes = []
-
+    message.reply_text("Downloading...")
     for _ in range(memes_to_fetch):
 
         selected_subreddit = random.choice(subreddits)
@@ -514,7 +517,7 @@ def handle_multiple_reddit_command(client, message):
             meme_data = response.json()
             all_memes.append(meme_data)
         else:
-            send_message(message.chat.id, f"Failed to fetch meme from {selected_subreddit}.")
+            message.reply_text(f"Failed to fetch meme from {selected_subreddit}.")
 
     for meme_data in all_memes:
         title = meme_data['title']
@@ -531,16 +534,15 @@ def handle_multiple_reddit_command(client, message):
 
             # send_message(message.chat.id, "Uploading meme...")
             if file_extension in ['png', 'jpg', 'gif']:
-                app.send_photo(message.chat.id, file_name, caption=title)
+                message.reply_photo(file_name, caption=title)
             elif file_extension in ['mp4', 'gifv']:
-                app.send_video(message.chat.id, file_name, caption=title)
-            send_message(message.chat.id, "Meme upload finished!")
+                message.reply_video(file_name, caption=title)
+               send_message("upload finished!")
 
             os.remove(file_name)
 
         else:
-            send_message(message.chat.id, "Failed to download the meme.")
-
+            message.reply_text("Failed to download the meme.")
 
 
 
@@ -554,27 +556,27 @@ async def unsplash_command(client, message):
             data = response.json()
 
             if 'results' in data:
-                await app.send_message(message.chat.id, "Searching for images...")
+                await message.reply_text("Searching for images...")
                 photos = data['results']
                 if photos:
-                    await app.send_message(message.chat.id, "Images found!, Uploading...")
+                    await message.reply_text("Images found!, Uploading...")
                     for index, photo in enumerate(photos[:10], start=1):  # Send the first 5 images
                         image_url = photo['urls']['regular']
                         image_file = requests.get(image_url)
                         if image_file.status_code == 200:
 
-                            await app.send_photo(message.chat.id, photo=image_url)
+                            await message.reply_photo(image_url)
                         else:
-                            await app.send_message(message.chat.id, "Failed to fetch image.")
+                            await message.reply_text("Failed to fetch image.")
                 else:
-                    await app.send_message(message.chat.id, "Can't find images for that keyword.")
+                    await message.reply_text("Can't find images for that keyword.")
             else:
-                await app.send_message(message.chat.id, "Failed to get images.")
+                await message.reply_text("Failed to get images.")
         else:
-            await app.send_message(message.chat.id, "Please provide a keyword to search for images.")
+            await message.reply_text("Please provide a keyword to search for images.")
 
     except Exception as e:
-        await app.send_message(message.chat.id, f'An error occurred: {str(e)}')
+        await message.reply_text(f'An error occurred: {str(e)}')
         
         
 
@@ -590,21 +592,21 @@ async def ipex_command(client, message):
                 'query': keyword,
                 'per_page': 5,
             }
-            await app.send_message(message.chat.id, "Fetching Images...")
+            await message.reply_text("Fetching Images...")
             response = requests.get('https://api.pexels.com/v1/search', headers=headers, params=params)
             data = response.json()
             photos = data.get('photos')
             if photos:
-                await app.send_message(message.chat.id, "Images Found!, Uploading...")
+                await message.reply_text("Images Found!, Uploading...")
                 for photo in photos:
                     image_url = photo['src']['medium']
-                    await app.send_photo(message.chat.id, photo=image_url)
+                    await message.reply_photo(image_url)
             else:
-                await app.send_message(message.chat.id, "No images found for the keyword.")
+                await message.reply_text("No images found for the keyword.")
         else:
-            await app.send_message(message.chat.id, "Please provide a keyword to search for images.")
+            await message.reply_text("Please provide a keyword to search for images.")
     except Exception as e:
-        await app.send_message(message.chat.id, f'An error occurred: {str(e)}')
+        await message.reply_text(f'An error occurred: {str(e)}')
 
 
 
@@ -620,21 +622,21 @@ async def vpex_command(client, message):
                 'query': keyword,
                 'per_page': 5,
             }
-            await app.send_message(message.chat.id, "Fetching Videos...")
+            await message.reply_text("Fetching Videos...")
             response = requests.get('https://api.pexels.com/videos/search', headers=headers, params=params)
             data = response.json()
             videos = data.get('videos')
             if videos:
-                await app.send_message(message.chat.id, "Videos Found!, Uploading...")
+                await message.reply_text("Videos Found!, Uploading...")
                 for video in videos:
                     video_url = video['video_files'][0]['link']
-                    await app.send_video(message.chat.id, video_url)
+                    await message.reply_video(video_url)
             else:
-                await app.send_message(message.chat.id, "No videos found for the keyword.")
+                await message.reply_text("No videos found for the keyword.")
         else:
-            await app.send_message(message.chat.id, "Please provide a keyword to search for videos.")
+            await message.reply_text("Please provide a keyword to search for videos.")
     except Exception as e:
-        await app.send_message(message.chat.id, f'An error occurred: {str(e)}')        
+        await message.reply_text(f'An error occurred: {str(e)}')        
 
 
 
@@ -643,11 +645,11 @@ async def pirate_bay_command(client, message):
     try:
         search_query = " ".join(message.command[1:])
         if search_query:
-            await app.send_message(message.chat.id, "Searching for torrents...")
+            await message.reply_text("Searching for torrents...")
             torrents = tpb.search(search_query)
 
             if torrents:
-                await app.send_message(message.chat.id, f"Found {len(torrents)} torrents:")
+                await message.reply_text(f"Found {len(torrents)} torrents:")
                 for torrent in torrents:
                     magnet_link = torrent.magnetlink  # Retrieve magnet link
                     info = (
@@ -660,13 +662,13 @@ async def pirate_bay_command(client, message):
                         f"**Filesize**: {torrent.filesize}\n"
                         f"**Magnet Link**: `{magnet_link}`\n"  # Send magnet link
                     )
-                    await app.send_message(message.chat.id, info)
+                    await message.reply_text(info)
             else:
-                await app.send_message(message.chat.id, "No torrents found for the keyword.")
+                await message.reply_text("No torrents found for the keyword.")
         else:
-            await app.send_message(message.chat.id, "Please provide a keyword to search for torrents.")
+            await message.reply_text("Please provide a keyword to search for torrents.")
     except Exception as e:
-        await app.send_message(message.chat.id, f'An error occurred: {str(e)}')
+        await message.reply_text(f'An error occurred: {str(e)}')
 
 
 
