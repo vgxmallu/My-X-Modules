@@ -8,7 +8,7 @@ from pyrogram.types import *
 from pyrogram.enums import *
 
 #BOT FILE NAME
-from mbpt import Mbot as app
+from mbot import Mbot as app
 from mbot.utils.Database.couples_db import _get_image, get_couple
 
 def dt():
