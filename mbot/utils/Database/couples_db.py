@@ -1,4 +1,4 @@
-from mbot.utils.couple_mongo import db
+from mbot.utils.Database.couple_mongo.py import db
 
 coupledb = db.couple
 
