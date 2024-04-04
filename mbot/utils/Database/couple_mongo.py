@@ -6,7 +6,7 @@ from motor.motor_asyncio import AsyncIOMotorClient as MongoCli
 from config import DB_URL, DB_NAME
 
 mongo = MongoCli(DB_URL)
-db = mongo[DB_NAME]
+db = mongo.mbot
 
 coupledb = db.couple
 
