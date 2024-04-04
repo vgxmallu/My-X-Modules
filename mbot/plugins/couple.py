@@ -31,9 +31,11 @@ def dt_tom():
 tomorrow = str(dt_tom())
 today = str(dt()[0])
 
+chat_id = "-1001954979279" 
+
 @app.on_message(filters.command("couples"))
 async def ctest(_, message):
-    cid = message.chat.id
+    #cid = message.chat.id
     if message.chat.type == ChatType.PRIVATE:
         return await message.reply_text("This command only works in groups.")
     try:
@@ -43,7 +45,7 @@ async def ctest(_, message):
          #GET LIST OF USERS
          list_of_users = []
 
-         async for i in app.get_chat_members(message.chat.id, limit=50):
+         async for i in app.get_chat_members(chat_id, limit=50):
              if not i.user.is_bot:
                list_of_users.append(i.user.id)
 
