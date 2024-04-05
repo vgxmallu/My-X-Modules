@@ -1,7 +1,7 @@
 Pyrogram==2.0.106
 telethon~=1.14.0
 telebot==0.0.5
-
+opencv-python
 TgCrypto==1.2.5
 python-dateutil
 python-dotenv==1.0.0
