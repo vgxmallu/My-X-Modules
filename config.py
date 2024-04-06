@@ -11,6 +11,7 @@ admins = {}
 #MOMGO_DATABASE
 DB_URL = os.environ.get("DB_URL", "")
 DB_NAME = os.environ.get("DB_NAME", "")
+BOT_USERNAME = getenv("BOT_USERNAME" , "HIMANSHbOT")
 
 #LOGS_CHANNEL_&_GROUP
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001784386455"))
@@ -37,8 +38,6 @@ CHROME_BIN = os.environ.get("CHROME_BIN",  "/usr/bin/google-chrome-stable")
 
 #API_MODULS
 CURRENCY_API = environ.get("CURRENCY_API")
-# ------------------------------------------------
 GPT_API = os.environ.get("GPT_API")
-# ------------------------------------------------
 DAXX_API = os.environ.get("DAXX_API")
 DEEP_API = os.environ.get("DEEP_API")
