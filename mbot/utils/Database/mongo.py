@@ -35,7 +35,7 @@ db = mongo.mbot
 
 #nightmodedb = db.nightmode
 
-#notesdb = db.notes
+notesdb = db.notes
 
 filtersdb = db.filters
 
