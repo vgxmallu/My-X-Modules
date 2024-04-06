@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 import requests
-from mbot import Mbpt as app
+from mbot import Mbot as app
 
 
 TMDB_API_KEY = "23c3b139c6d59ebb608fe6d5b974d888"
