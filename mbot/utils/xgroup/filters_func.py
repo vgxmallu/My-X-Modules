@@ -8,7 +8,7 @@ from emojis import decode
 from pyrogram.types import Message
 
 
-async def SendFilterMessage(message: Message, filter_name: str, content: str, text: str, data_type: int):
+async def SendFilterMessage(bot: message, filter_name: str, content: str, text: str, data_type: int):
     
     chat_id = message.chat.id
     message_id = message.id
