@@ -4,11 +4,11 @@ from pyrogram.enums import ChatType
 from pyrogram.errors import MessageDeleteForbidden, RPCError
 from pyrogram.types import Message
 
-from mbot.utils.xgroup.daxx_ban import admin_filter
+#from mbot.utils.xgroup.daxx_ban import admin_filter
 from mbot import Mbot as app
 
 
-@app.on_message(filters.command("purge") & admin_filter)
+@app.on_message(filters.command("purge"))
 async def purge(app: app, msg: Message):
     
     if msg.chat.type != ChatType.SUPERGROUP:
@@ -48,7 +48,7 @@ async def purge(app: app, msg: Message):
 
 
 
-@app.on_message(filters.command("spurge") & admin_filter)
+@app.on_message(filters.command("spurge"))
 async def spurge(app: app, msg: Message):
 
     if msg.chat.type != ChatType.SUPERGROUP:
@@ -79,7 +79,7 @@ async def spurge(app: app, msg: Message):
     return
 
 
-@app.on_message(filters.command("del") & admin_filter)
+@app.on_message(filters.command("del"))
 async def del_msg(app: app, msg: Message):
     if msg.chat.type != ChatType.SUPERGROUP:
         await msg.reply_text(text="**ɪ ᴄᴀɴ'ᴛ ᴘᴜʀɢᴇ ᴍᴇssᴀɢᴇs ɪɴ ᴀ ʙᴀsɪᴄ ɢʀᴏᴜᴘ ᴍᴀᴋᴇ sᴜᴘᴇʀ ɢʀᴏᴜᴘ.**")
