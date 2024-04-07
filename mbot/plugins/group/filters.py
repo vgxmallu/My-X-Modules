@@ -11,10 +11,10 @@ from mbot.utils.Database.filters_mdb import(
 from mbot.utils.Database.connections_mdb import active_connection
 
 from mbot.utils.xgroup.utli_fill import get_file_id, parser, split_quotes
-from mbot import OWNER_ID as ADMINS
+from mbot import Mbot, SUDO_USERS
 
 
-@Client.on_message(filters.command(['filter', 'add']) & filters.incoming)
+@Mbot.on_message(filters.command(['filter', 'add']) & filters.incoming)
 async def addfilter(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
@@ -47,7 +47,7 @@ async def addfilter(client, message):
     if (
         st.status != "administrator"
         and st.status != "creator"
-        and str(userid) not in ADMINS
+        and str(userid) not in SUDO_USERS
     ):
         return
 
@@ -117,7 +117,7 @@ async def addfilter(client, message):
     )
 
 
-@Client.on_message(filters.command(['viewfilters', 'filters']) & filters.incoming)
+@Mbot.on_message(filters.command(['viewfilters', 'filters']) & filters.incoming)
 async def get_all(client, message):
     
     chat_type = message.chat.type
@@ -150,7 +150,7 @@ async def get_all(client, message):
     if (
         st.status != "administrator"
         and st.status != "creator"
-        and str(userid) not in ADMINS
+        and str(userid) not in SUDO_USERS
     ):
         return
 
@@ -181,7 +181,7 @@ async def get_all(client, message):
         parse_mode="md"
     )
         
-@Client.on_message(filters.command('del') & filters.incoming)
+@Mbot.on_message(filters.command('del') & filters.incoming)
 async def deletefilter(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
@@ -212,7 +212,7 @@ async def deletefilter(client, message):
     if (
         st.status != "administrator"
         and st.status != "creator"
-        and str(userid) not in ADMINS
+        and str(userid) not in SUDO_USERS
     ):
         return
 
@@ -232,7 +232,7 @@ async def deletefilter(client, message):
     await delete_filter(message, query, grp_id)
         
 
-@Client.on_message(filters.command('delall') & filters.incoming)
+@Mbot.on_message(filters.command('delall') & filters.incoming)
 async def delallconfirm(client, message):
     userid = message.from_user.id if message.from_user else None
     if not userid:
@@ -261,7 +261,7 @@ async def delallconfirm(client, message):
         return
 
     st = await client.get_chat_member(grp_id, userid)
-    if (st.status == "creator") or (str(userid) in ADMINS):
+    if (st.status == "creator") or (str(userid) in SUDO_USERS):
         await message.reply_text(
             f"This will delete all filters from '{title}'.\nDo you want to continue??",
             reply_markup=InlineKeyboardMarkup([
