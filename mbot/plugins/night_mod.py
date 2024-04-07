@@ -1,10 +1,10 @@
 import random 
 from pyrogram import filters,Client,enums
+from mbot import Mbot as app
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pyrogram.types import ChatPermissions
 
-from mbot import Mbot as app
 from mbot.utils.Database.nightmodedb import nightdb,nightmode_on,nightmode_off,get_nightchats 
 
 
@@ -30,10 +30,11 @@ OPEN_CHAT = ChatPermissions(
     can_pin_messages = True,
     can_invite_users = True )
     
-buttons = InlineKeyboardMarkup([[InlineKeyboardButton("🟢ENABLE🟢", callback_data="add_night"),InlineKeyboardButton("🔴DISABLE🔴", callback_data="rm_night")]])         
-@app.on_message(filters.command("nightmod") & filters.group)
+buttons = InlineKeyboardMarkup([[InlineKeyboardButton("๏ ᴇɴᴀʙʟᴇ ๏", callback_data="add_night"),InlineKeyboardButton("๏ ᴅɪsᴀʙʟᴇ ๏", callback_data="rm_night")]])         
+
+@app.on_message(filters.command("nightmode") & filters.group)
 async def _nightmode(_, message):
-    return await message.reply_photo(photo="https://telegra.ph//file/06649d4d0bbf4285238ee.jpg", caption="🌅__Click on the below button to Enable | Disable Night Mode in this Chat.__🌌",reply_markup=buttons)
+    return await message.reply_photo(photo="https://telegra.ph//file/06649d4d0bbf4285238ee.jpg", caption="**ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴛᴏ ᴇɴᴀʙʟᴇ ᴏʀ ᴅɪsᴀʙʟᴇ ɴɪɢʜᴛᴍᴏᴅᴇ ɪɴ ᴛʜɪs ᴄʜᴀᴛ.**",reply_markup=buttons)
               
      
 @app.on_callback_query(filters.regex("^(add_night|rm_night)$"))
@@ -43,19 +44,24 @@ async def nightcb(_, query : CallbackQuery):
     user_id = query.from_user.id
     check_night = await nightdb.find_one({"chat_id" : chat_id})
     administrators = []
-    if data == "add_night":
-        if check_night:        
-            await query.message.edit_caption("__Night Mod is already enable in this chat__")
-        elif not check_night:
-            await nightmode_on(chat_id)
-            await query.message.edit_caption("__Added to my Database. This group will be closed on 12Am [IST] and will opened on 06Am [IST] .__") 
-    if data == "rm_night":
-        if check_night:  
-            await nightmode_off(chat_id)      
-            await query.message.edit_caption("__Night Mod is removed from my database.__")
-        elif not check_night:
-            await query.message.edit_caption("__Night Mod is already disable in this chat__") 
+    async for m in app.get_chat_members(chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
+        administrators.append(m.user.id)     
+    if user_id in administrators:   
+        if data == "add_night":
+            if check_night:        
+                await query.message.edit_caption("**๏ ɴɪɢʜᴛᴍᴏᴅᴇ ɪs ᴀʟʀᴇᴀᴅʏ ᴇɴᴀʙʟᴇᴅ ɪɴ ᴛʜɪs ᴄʜᴀᴛ.**")
+            elif not check_night :
+                await nightmode_on(chat_id)
+                await query.message.edit_caption("**๏ ᴀᴅᴅᴇᴅ ᴄʜᴀᴛ ᴛᴏ ᴍʏ ᴅᴀᴛᴀʙᴀsᴇ . ᴛʜɪs ɢʀᴏᴜᴘ ᴡɪʟʟ ʙᴇ ᴄʟᴏsᴇᴅ ᴏɴ 𝟷𝟸ᴀᴍ [IST] ᴀɴᴅ ᴡɪʟʟ ᴏᴘᴇɴᴇᴅ ᴏɴ 𝟶𝟼ᴀᴍ [IST] .**") 
+        if data == "rm_night":
+            if check_night:  
+                await nightmode_off(chat_id)      
+                await query.message.edit_caption("**๏ ɴɪɢʜᴛᴍᴏᴅᴇ ʀᴇᴍᴏᴠᴇᴅ ғʀᴏᴍ ᴍʏ ᴅᴀᴛᴀʙᴀsᴇ !**")
+            elif not check_night:
+                await query.message.edit_caption("**๏  ɴɪɢʜᴛᴍᴏᴅᴇ ɪs ᴀʟʀᴇᴀᴅʏ ᴅɪsᴀʙʟᴇᴅ  ɪɴ ᴛʜɪs ᴄʜᴀᴛ.**") 
             
+    
+    
 async def start_nightmode() :
     chats = []
     schats = await get_nightchats()
@@ -67,8 +73,8 @@ async def start_nightmode() :
         try:
             await app.send_photo(
                 add_chat,
-                photo="https://telegra.ph/file/439776047f545a22fa817.jpg",
-                caption= f"__Group is closing! Good night 🥱😴🌌__")
+                photo="https://telegra.ph//file/06649d4d0bbf4285238ee.jpg",
+                caption= f"**ᴍᴀʏ ᴛʜᴇ ᴀɴɢᴇʟs ғʀᴏᴍ ʜᴇᴀᴠᴇɴ ʙʀɪɴɢ ᴛʜᴇ sᴡᴇᴇᴛᴇsᴛ ᴏғ ᴀʟʟ ᴅʀᴇᴀᴍs ғᴏʀ ʏᴏᴜ. ᴍᴀʏ ʏᴏᴜ ʜᴀᴠᴇ ʟᴏɴɢ ᴀɴᴅ ʙʟɪssғᴜʟ sʟᴇᴇᴘ ғᴜʟʟ ᴏғ ʜᴀᴘᴘʏ ᴅʀᴇᴀᴍs.\n\nɢʀᴏᴜᴘ ɪs ᴄʟᴏsɪɴɢ ɢᴏᴏᴅ ɴɪɢʜᴛ ᴇᴠᴇʀʏᴏɴᴇ  !**")
             
             await app.set_chat_permissions(add_chat,CLOSE_CHAT)
 
@@ -76,7 +82,7 @@ async def start_nightmode() :
             print(f"[bold red] Unable To close Group {add_chat} - {e}")
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(start_nightmode, trigger="cron", hour=23, minute=59) #hour=23, minute=59
+scheduler.add_job(start_nightmode, trigger="cron", hour=23, minute=59)
 scheduler.start()
 
 async def close_nightmode():
@@ -90,8 +96,8 @@ async def close_nightmode():
         try:
             await app.send_photo(
                 rm_chat,
-                photo="https://telegra.ph/file/e1ecea4a99b1a0d45d1d8.jpg",
-                caption= f"__Group is Opened Now Avery one can message again 😊! Good morning 🌞 🌄__")
+                photo="https://telegra.ph//file/14ec9c3ff42b59867040a.jpg",
+                caption= f"**ɢʀᴏᴜᴘ ɪs ᴏᴘᴇɴɪɴɢ ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ ᴇᴠᴇʀʏᴏɴᴇ !\n\nᴍᴀʏ ᴛʜɪs ᴅᴀʏ ᴄᴏᴍᴇ ᴡɪᴛʜ ᴀʟʟ ᴛʜᴇ ʟᴏᴠᴇ ʏᴏᴜʀ ʜᴇᴀʀᴛ ᴄᴀɴ ʜᴏʟᴅ ᴀɴᴅ ʙʀɪɴɢ ʏᴏᴜ ᴇᴠᴇʀʏ sᴜᴄᴄᴇss ʏᴏᴜ ᴅᴇsɪʀᴇ. Mᴀʏ ᴇᴀᴄʜ ᴏғ ʏᴏᴜʀ ғᴏᴏᴛsᴛᴇᴘs ʙʀɪɴɢ Jᴏʏ ᴛᴏ ᴛʜᴇ ᴇᴀʀᴛʜ ᴀɴᴅ ʏᴏᴜʀsᴇʟғ. ɪ ᴡɪsʜ ʏᴏᴜ ᴀ ᴍᴀɢɪᴄᴀʟ ᴅᴀʏ ᴀɴᴅ ᴀ ᴡᴏɴᴅᴇʀғᴜʟ ʟɪғᴇ ᴀʜᴇᴀᴅ.**")
             
             await app.set_chat_permissions(rm_chat,OPEN_CHAT)
 
@@ -99,5 +105,5 @@ async def close_nightmode():
             print(f"[bold red] Unable To open Group {rm_chat} - {e}")
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
-scheduler.add_job(close_nightmode, trigger="cron", hour=6, minute=1) #hour=6, minute=1
+scheduler.add_job(close_nightmode, trigger="cron", hour=6, minute=1)
 scheduler.start()
