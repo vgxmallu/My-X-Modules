@@ -7,7 +7,7 @@ import random
 import os
 import re
 from config import DB_URL
-
+from mbot import Mbot as bot
 
 
 BOT_IMAGE = os.environ.get("BOT_IMAGE", "none")
