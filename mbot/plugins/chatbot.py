@@ -98,7 +98,7 @@ async def vai(client: Client, message: Message):
    chatai = chatdb["Word"]["WordDb"]   
 
    if not message.reply_to_message:
-       vdb = MongoClient(MONGO_URL)
+       vdb = MongoClient(DB_URL)
        v = vdb["vDb"]["v"] 
        is_v = v.find_one({"chat_id": message.chat.id})
        if not is_v:
@@ -118,7 +118,7 @@ async def vai(client: Client, message: Message):
                    await message.reply_text(f"{hey}")
    
    if message.reply_to_message:  
-       vdb = MongoClient(MONGO_URL)
+       vdb = MongoClient(DB_URL)
        v = vdb["vDb"]["v"] 
        is_v = v.find_one({"chat_id": message.chat.id})    
        getme = await bot.get_me()
