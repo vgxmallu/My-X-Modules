@@ -2,11 +2,15 @@
 from pyrogram.types import Message
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 from pyrogram.types import InlineKeyboardButton
-import asyncio
 
+import asyncio
 import re
 import os
 from datetime import datetime
+from typing import List
+import requests
+from typing import Union
+
 
 
 SMART_OPEN = '“'
