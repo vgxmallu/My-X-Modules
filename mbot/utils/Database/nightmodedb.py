@@ -1,7 +1,11 @@
 from typing import Dict, List, Union
-from mbot.utils.Database import mongodb
+from config import DB_URL
+from motor.motor_asyncio import AsyncIOMotorClient as MongoCli
 
-nightdb = mongodb.nightmode
+
+mongo = MongoCli(DB_URL).Rankings
+
+nightdb = mongo.nightmode
 
 
 async def nightmode_on(chat_id : int) :
