@@ -17,7 +17,7 @@ httpx[http2]
 httpx~=0.26.0
 bs4==0.0.1
 wget
-motor==2.5.1
+motor
 Pillow==10.1.0
 html5lib
 pytz
