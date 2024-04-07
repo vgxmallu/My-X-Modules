@@ -1,7 +1,7 @@
 from pyrogram import filters, Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from mbot.utils.Database.connections_mdb import add_connection, all_connections, if_active, delete_connection
-from mbor import Mbot, SUDO_USERS
+from mbot import Mbot, SUDO_USERS
 import logging
 
 
