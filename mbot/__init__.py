@@ -3,8 +3,8 @@ from os import environ, mkdir, path, sys
 from dotenv import load_dotenv
 from pyrogram import Client
 import time
-from telethon import TelegramClient, events, functions, types
-import telebot
+#from telethon import TelegramClient, events, functions, types
+#import telebot
 
 CMD = ["/", ".", "?", "#", "!", "mg", "mx", ","]
 
@@ -65,11 +65,11 @@ AUTH_CHATS = [int(_x) for _x in AUTH_CHATS]
 
 
 #TELETHON BOT RUNNER
-bot = TelegramClient(__name__, API_ID, API_HASH, base_logger=telethon_logger).start(bot_token=BOT_TOKEN)
-logger.info("TELETHON BOT STARTED BROO")
+#bot = TelegramClient(__name__, API_ID, API_HASH, base_logger=telethon_logger).start(bot_token=BOT_TOKEN)
+#logger.info("TELETHON BOT STARTED BROO")
 
 # TELE BOT RUNNER
-tbot = telebot.TeleBot(BOT_TOKEN) 
+#tbot = telebot.TeleBot(BOT_TOKEN) 
 
 #PYTHON BOT RUNNER
 class Mbot(Client):
