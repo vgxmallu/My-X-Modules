@@ -6,7 +6,7 @@ from mbot import Mbot as app
 
 
 
-@app.on_message(filters.command(["downloadrepo"]))
+@app.on_message(filters.command(["dlrepo"]))
 def download_repo(_, message):
     if len(message.command) != 2:
         message.reply_text("Please provide the GitHub repository URL after the command. Example: /downloadrepo Repo Url ")
