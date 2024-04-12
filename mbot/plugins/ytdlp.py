@@ -20,10 +20,7 @@ s2tw = OpenCC('s2tw.json').convert
 
 # https://docs.pyrogram.org/start/examples/bot_keyboards
 # Reply with inline keyboard
-@Client.on_message(filters.private
-                   & filters.user("784589736")
-                   & filters.text
-                   & filters.regex(YTDL_REGEX))
+@Client.on_message(filters.private & filters.regex(YTDL_REGEX))
 async def ytdl_with_button(_, message: Message):
     await message.reply_text(
         "**Choose download type:**",
