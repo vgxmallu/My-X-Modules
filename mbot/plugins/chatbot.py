@@ -32,7 +32,7 @@ async def is_admins(chat_id: int):
 
 
 @bot.on_message(
-    filters.command("chatbot off", prefixes=["/", ".", "?", "-"])
+    filters.command("chatbotoff", prefixes=["/", ".", "?", "-"])
     & ~filters.private)
 async def chatbotofd(client, message):
     vdb = MongoClient(DB_URL)    
@@ -55,7 +55,7 @@ async def chatbotofd(client, message):
     
 
 @bot.on_message(
-    filters.command("chatbot on", prefixes=["/", ".", "?", "-"])
+    filters.command("chatboton", prefixes=["/", ".", "?", "-"])
     & ~filters.private)
 async def chatboton(client, message):
     vdb = MongoClient(DB_URL)    
