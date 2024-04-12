@@ -23,7 +23,6 @@ s2tw = OpenCC('s2tw.json').convert
 @Client.on_message(filters.private
                    & filters.user("784589736")
                    & filters.text
-                   & ~filters.edited
                    & filters.regex(YTDL_REGEX))
 async def ytdl_with_button(_, message: Message):
     await message.reply_text(
