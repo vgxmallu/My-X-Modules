@@ -16,7 +16,7 @@ BOT_USERNAME = getenv("BOT_USERNAME" , "GojoSatoru_Xbot")
 #LOGS_CHANNEL_&_GROUP
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001784386455"))
 LOG_GROUP_ID = environ.get("LOG_GROUP_ID")
-
+CHANNEL_FORWARD_TO = int(os.environ.get("CHANNEL_FORWARD_TO"))
 #AUTHENTICATED_USERS
 AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "784589736").split())
 OWNER_ID = int(getenv("OWNER_ID", "784589736"))
