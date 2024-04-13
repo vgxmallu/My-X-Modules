@@ -124,7 +124,7 @@ async def greet_group(bot, member: ChatMemberUpdated):
             member.chat.id,
             photo=welcomeimg,
             caption= f"""
-**⁣Welcome to my {member.chat.title} Group♡゙**
+**⁣Welcome to my ๛ {member.chat.title} Group♡゙**
 
 •×•×•×•×•×•×•×•×•×•×•×•×•×•×•×•
 × Name: {user.mention}
@@ -134,7 +134,7 @@ async def greet_group(bot, member: ChatMemberUpdated):
 × Joind Time: {joined_date}
 •×•×•×•×•×•×•×•×•×•×•×•×•×•×•×•
 
-{user.first_name} Your are here {count}Th member of the group!
+ ๛ {user.first_name} Your are here {count}Th member of the group!
 """,
 reply_markup=InlineKeyboardMarkup(
 [
