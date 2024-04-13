@@ -126,13 +126,10 @@ async def greet_group(bot, member: ChatMemberUpdated):
             caption= f"""
 **⁣Welcome to my ๛ {member.chat.title} Group♡゙**
 
-•×•×•×•×•×•×•×•×•×•×•×•×•×•×•×•
 × Name: {user.mention}
 × User name: @{user.username}
 × User id: {user.id}
-× Total members: 
 × Joind Time: {joined_date}
-•×•×•×•×•×•×•×•×•×•×•×•×•×•×•×•
 
  ๛ {user.first_name} Your are here {count}Th member of the group!
 """,
