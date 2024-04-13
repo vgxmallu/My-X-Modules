@@ -35,7 +35,7 @@ pySmartDL
 cachetools==5.3.2
 pyrate_limiter
 pymongo[srv]==3.12.3
-
+async_pymongo
 telegraph
 psutil
 asgiref
