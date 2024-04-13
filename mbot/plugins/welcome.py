@@ -10,7 +10,7 @@ from pyrogram.types import Message
 
 from mbot import SUDO_USERS as SUDOERS
 from mbot import Mbot as app
-from mbot.utils.Database import *
+#from mbot.utils.Database import *
 #from config import LOG_CHANNEL
 
 LOGGER = getLogger(__name__)
@@ -55,7 +55,7 @@ def welcomepic(pic, user, chat, id, uname):
     )
     return f"downloads/welcome#{id}.png"
 
-
+"""
 @app.on_message(filters.command("swel") & ~filters.private)
 async def auto_state(_, message):
     usage = "**✦ ᴜsᴀɢᴇ ➠** /swel [ᴇɴᴀʙʟᴇ|ᴅɪsᴀʙʟᴇ]"
@@ -86,15 +86,12 @@ async def auto_state(_, message):
         await message.reply_text(usage)
     else:
         await message.reply("✦ Only Admins Can Use This Command")
-    
+"""
 #bhag 
 
 @app.on_chat_member_updated(filters.group, group=-3)
 async def greet_group(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
-    A = await wlcm.find_one({"chat_id" : chat_id})
-    if not A:
-       return
     if (
         not member.new_chat_member
         or member.new_chat_member.status in {"banned", "left", "restricted"}
