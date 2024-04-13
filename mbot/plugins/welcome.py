@@ -92,6 +92,7 @@ async def auto_state(_, message):
 @app.on_chat_member_updated(filters.group, group=-3)
 async def greet_group(bot, member: ChatMemberUpdated):
     chat_id = member.chat.id
+    count = await bot.get_chat_members_count(member.chat.id)
     if (
         not member.new_chat_member
         or member.new_chat_member.status in {"banned", "left", "restricted"}
@@ -119,17 +120,18 @@ async def greet_group(bot, member: ChatMemberUpdated):
             photo=welcomeimg,
             caption= f"""
 **
-⁣❅────✦ ᴡᴇʟᴄᴏᴍᴇ ✦────❅
+**⁣✦ WELCOME TO ♣️MUSIC🎵GALAXY♣️ ✦**
 
-๏ ɴᴀᴍᴇ ➠  {user.mention}
-๏ ᴜsᴇʀɴᴀᴍᴇ ➠ @{user.username}
-๏ ᴜsᴇʀ ɪᴅ  ➠ {user.id}
+× Name : {user.mention}
+× User name : @{user.username}
+× User id : {user.id}
+× Total members : {count}
 
-๏ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ➠ [๛ɴ ʏ ᴋ ᴀ ᴀ࿐](https://t.me/nykaaxbot)**
+๏ Powered by : **๛ @GojoSatoru_Xbot**
 """,
 reply_markup=InlineKeyboardMarkup(
 [
-[InlineKeyboardButton(f"ᴀᴅᴅ ᴍᴇ ʙᴀʙʏ", url=f"https://t.me/nykaaxBot?startgroup=new"),
+[InlineKeyboardButton(f"Read rules!", url=f"http://t.me/Hydra_Maneger_bot?start=regole_-1001671054664"),
 ]
 ]
 ))
