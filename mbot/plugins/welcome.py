@@ -8,7 +8,7 @@ from mbot import LOGGER
 from pyrogram.types import Message
 
 
-from mbot import SUDOERS
+from mbot import SUDO_USERS as SUDOERS
 from mbot import Mbot as app
 from mbot.utils.Database import *
 #from config import LOG_CHANNEL
