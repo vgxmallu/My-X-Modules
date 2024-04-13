@@ -71,4 +71,4 @@ youtube_dl
 pytube==15.0.0
 youtube-search-python==1.4.6
  
-###git+https://github.com/yt-dlp/yt-dlp.git
+git+https://github.com/yt-dlp/yt-dlp.git
