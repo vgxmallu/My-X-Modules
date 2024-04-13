@@ -31,6 +31,7 @@ NoteShrinker
 ffmpeg==1.4
 python-ffmpeg==2.0.4
 ffprobe==0.5
+
 pySmartDL
 cachetools==5.3.2
 pyrate_limiter
@@ -64,5 +65,11 @@ pyYify==1.9.2
 spotdl==4.2.1
 OpenCC
 unidecode
-youtube_dl
 opencv-python
+
+
+youtube_dl
+pytube==11.0.1
+youtube-search-python==1.4.6
+#yt-dlp==2022.2.4 
+git+https://github.com/yt-dlp/yt-dlp.git
