@@ -90,7 +90,7 @@ async def auto_state(_, message):
 #bhag 
 
 @app.on_chat_member_updated(filters.group, group=-3)
-async def greet_group(_, member: ChatMemberUpdated):
+async def greet_group(bot, member: ChatMemberUpdated):
     chat_id = member.chat.id
     if (
         not member.new_chat_member
@@ -100,7 +100,7 @@ async def greet_group(_, member: ChatMemberUpdated):
         return
     user = member.new_chat_member.user if member.new_chat_member else member.from_user
     try:
-        pic = await app.download_media(
+        pic = await bot.download_media(
             user.photo.big_file_id, file_name=f"pp{user.id}.png"
         )
     except AttributeError:
@@ -114,7 +114,7 @@ async def greet_group(_, member: ChatMemberUpdated):
         welcomeimg = welcomepic(
             pic, user.first_name, member.chat.title, user.id, user.username
         )
-        temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
+        temp.MELCOW[f"welcome-{member.chat.id}"] = await bot.send_photo(
             member.chat.id,
             photo=welcomeimg,
             caption= f"""
