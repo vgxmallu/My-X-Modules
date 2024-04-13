@@ -66,6 +66,6 @@ OpenCC
 unidecode
 opencv-python
 
-
+lyricsgenius==3.0.1
 youtube_dl
 
