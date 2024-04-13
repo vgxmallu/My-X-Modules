@@ -1,25 +1,24 @@
-from typing import Dict, Union
-
-from motor.motor_asyncio import AsyncIOMotorClient as MongoCli
-from motor.motor_asyncio import AsyncIOMotorClient
+from typing import Dict, List, Union
 from config import DB_URL
+from motor.motor_asyncio import AsyncIOMotorClient as MongoCli
 
 
-_mongo_async_ = AsyncIOMotorClient(DB_URL)
-mongodb = _mongo_async_.Anon
+mongo = MongoCli(DB_URL).Rankings
+
+nightdb = mongo.nightmode
 
 
-mongo = MongoCli(DB_URL)
-db = mongo.mbot
+async def nightmode_on(chat_id : int) :
+    return nightdb.insert_one({"chat_id" : chat_id})     
+    
+async def nightmode_off(chat_id : int):
+    return nightdb.delete_one({"chat_id" : chat_id})
 
-#coupledb = db.couple
-
-
-#afkdb = db.afk
-
-#nightmodedb = db.nightmode
-
-notesdb = db.notes
-
-filtersdb = db.filters
-
+async def get_nightchats() -> list:
+    chats = nightdb.find({"chat_id": {"$lt": 0}})
+    if not chats:
+        return []
+    chats_list = []
+    for chat in await chats.to_list(length=1000000000):
+        chats_list.append(chat)
+    return chats_list
