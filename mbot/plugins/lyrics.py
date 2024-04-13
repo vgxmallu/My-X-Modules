@@ -36,9 +36,6 @@ async def lyrics1(medusa:Medusa,msg: Message):
             f.write(f'{lyric_title}\n{lyric_artist}\n\n\n{lyrics_text}')
 
         await r_text.edit_text('__Lyric too long. Sending as a text file...__')
-        await msg.reply_chat_action(
-            action='upload_document'
-        )
         await msg.reply_document(
             document=f'downloads/{lyric_title}.txt',
             thumb=thumbl,
