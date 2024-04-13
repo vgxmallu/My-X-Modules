@@ -97,7 +97,7 @@ async def greet_group(bot, member: ChatMemberUpdated):
     chat_id = member.chat.id
     count = await bot.get_chat_members_count(member.chat.id)
     datetime_ist = datetime.now(IST)
-    joined_date = datetime_ist.strftime("`%I:%M:%S %p`\n× Date: `%d/%B/%Y`")
+    joined_date = datetime_ist.strftime("`%I:%M %p` (%d/%B/%Y)")
     if (
         not member.new_chat_member
         or member.new_chat_member.status in {"banned", "left", "restricted"}
@@ -129,9 +129,9 @@ async def greet_group(bot, member: ChatMemberUpdated):
 × Name: {user.mention}
 × User name: @{user.username}
 × User id: {user.id}
-× Joind Time: {joined_date}
 
  ๛ {user.first_name} Your are here {count}Th member of the group!
+ Time » {joined_date}
 """,
 reply_markup=InlineKeyboardMarkup(
 [
