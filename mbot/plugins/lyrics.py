@@ -29,7 +29,7 @@ async def lyrics1(medusa:Medusa,msg: Message):
     lyrics_text = lyric.lyrics
 
     try:
-        await r_text.edit_text(f'__--**{lyric_title}**--__\n__{lyric_artist}\n__\n\n__{lyrics_text}__\n__Extracted by @MedusaMousikibot__')
+        await r_text.edit_text(f'__--**{lyric_title}**--__\n__{lyric_artist}\n__\n\n__{lyrics_text}__\n__Extracted by @GojoSatoru_Xbot__')
 
     except MessageTooLong:
         with open(f'downloads/{lyric_title}.txt','w') as f:
@@ -42,7 +42,7 @@ async def lyrics1(medusa:Medusa,msg: Message):
         await msg.reply_document(
             document=f'downloads/{lyric_title}.txt',
             thumb='src/Medusa320px.png',
-            caption=f'\n__--{lyric_title}--__\n__{lyric_artist}__\n\n__Extracted by @MedusaMousikibot__'
+            caption=f'\n__--{lyric_title}--__\n__{lyric_artist}__\n\n__Extracted by @GojoSatoru_Xbot__'
         )
 
         await r_text.delete()
