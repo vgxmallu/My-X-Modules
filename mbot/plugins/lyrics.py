@@ -8,7 +8,7 @@ from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong
 #j
 api = genius.Genius(GENIUS_API,verbose=False)
 
-
+thumbl = "https://telegra.ph/file/867b54d9b47b462d46444.jpg"
 @Medusa.on_message(filters.command(["lyrics", "lyric"]))
 async def lyrics1(medusa:Medusa,msg: Message):
 
@@ -41,7 +41,7 @@ async def lyrics1(medusa:Medusa,msg: Message):
         )
         await msg.reply_document(
             document=f'downloads/{lyric_title}.txt',
-            thumb='src/Medusa320px.png',
+            thumb=thumbl,
             caption=f'\n__--{lyric_title}--__\n__{lyric_artist}__\n\n__Extracted by @GojoSatoru_Xbot__'
         )
 
