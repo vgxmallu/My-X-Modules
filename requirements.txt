@@ -68,7 +68,7 @@ opencv-python
 
 
 youtube_dl
-pytube==11.0.1
+pytube==15.0.0
 youtube-search-python==1.4.6
 yt-dlp==2023.03.04 
 ###git+https://github.com/yt-dlp/yt-dlp.git
