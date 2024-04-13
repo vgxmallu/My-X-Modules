@@ -9,7 +9,7 @@ from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong
 api = genius.Genius(GENIUS_API,verbose=False)
 
 
-@Medusa.on_message(filters.command("lyrc"))
+@Medusa.on_message(filters.command(["lyrics", "lyric"]))
 async def lyrics1(medusa:Medusa,msg: Message):
 
     if len(msg.command) == 1:
