@@ -59,7 +59,6 @@ spotipy==2.23.0
 tpblite==0.8.0
 
 redgifs==1.7.2
-yt-dlp==2023.10.13
 gitpython==3.1.40
 pyYify==1.9.2
 spotdl==4.2.1
