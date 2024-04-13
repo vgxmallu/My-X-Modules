@@ -36,9 +36,10 @@ BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", True))
 #RANDOM_VARIABELS
 CHROME_BIN = os.environ.get("CHROME_BIN",  "/usr/bin/google-chrome-stable")
 
-#API_MODULS
+#API_TOOLS
 CURRENCY_API = environ.get("CURRENCY_API")
 GPT_API = os.environ.get("GPT_API")
 DAXX_API = os.environ.get("DAXX_API")
 DEEP_API = os.environ.get("DEEP_API")
 UNSPLASH_ACCESS_KEY = os.getenv('UNSPLASH_ACCESS_KEY','')
+GENIUS_API = os.getenv('GENIUS_API')
