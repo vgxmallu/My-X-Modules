@@ -63,5 +63,5 @@ gitpython==3.1.40
 pyYify==1.9.2
 spotdl==4.2.1
 OpenCC
-
+unidecode
 youtube_dl
