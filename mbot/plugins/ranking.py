@@ -80,7 +80,7 @@ def _watcher(_, message):
 # ------------------- ranks ------------------ #
 
 @app.on_message(filters.command("today"))
-async def today_(_, message):
+async def today_(bot, message):
     chat_id = message.chat.id
     if chat_id in today:
         users_data = [(user_id, user_data["total_messages"]) for user_id, user_data in today[chat_id].items()]
@@ -90,7 +90,7 @@ async def today_(_, message):
             response = "**✦ 📈 ᴛᴏᴅᴀʏ ʟᴇᴀᴅᴇʀʙᴏᴀʀᴅ**\n\n"
             for idx, (user_id, total_messages) in enumerate(sorted_users_data, start=1):
                 try:
-                    user_name = (await app.get_users(user_id)).first_name
+                    user_name = (await bot.get_users(user_id)).first_name
                 except:
                     user_name = "Unknown"
                 user_info = f"**{idx}**.   {user_name} ➠ {total_messages}\n"
@@ -108,7 +108,7 @@ async def today_(_, message):
 
 
 @app.on_message(filters.command("ranking"))
-async def ranking(_, message):
+async def ranking(bot, message):
     top_members = collection.find().sort("total_messages", -1).limit(10)
 
     response = "**✦ 📈 ᴄᴜʀʀᴇɴᴛ ʟᴇᴀᴅᴇʀʙᴏᴀʀᴅ**\n\n"
@@ -116,7 +116,7 @@ async def ranking(_, message):
         user_id = member["_id"]
         total_messages = member["total_messages"]
         try:
-            user_name = (await app.get_users(user_id)).first_name
+            user_name = (await bot.get_users(user_id)).first_name
         except:
             user_name = "Unknown"
 
@@ -133,7 +133,7 @@ async def ranking(_, message):
 # -------------------- regex -------------------- # 
 
 @app.on_callback_query(filters.regex("today"))
-async def today_rank(_, query):
+async def today_rank(bot, query):
     chat_id = query.message.chat.id
     if chat_id in today:
         users_data = [(user_id, user_data["total_messages"]) for user_id, user_data in today[chat_id].items()]
@@ -143,7 +143,7 @@ async def today_rank(_, query):
             response = "**✦ 📈 ᴛᴏᴅᴀʏ ʟᴇᴀᴅᴇʀʙᴏᴀʀᴅ**\n\n"
             for idx, (user_id, total_messages) in enumerate(sorted_users_data, start=1):
                 try:
-                    user_name = (await app.get_users(user_id)).first_name
+                    user_name = (await bot.get_users(user_id)).first_name
                 except:
                     user_name = "Unknown"
                 user_info = f"**{idx}**.   {user_name} ➠ {total_messages}\n"
@@ -161,7 +161,7 @@ async def today_rank(_, query):
 
 
 @app.on_callback_query(filters.regex("overall"))
-async def overall_rank(_, query):
+async def overall_rank(bot, query):
     top_members = collection.find().sort("total_messages", -1).limit(10)
 
     response = "**✦ 📈 ᴏᴠᴇʀᴀʟʟ ʟᴇᴀᴅᴇʀʙᴏᴀʀᴅ**\n\n"
@@ -169,7 +169,7 @@ async def overall_rank(_, query):
         user_id = member["_id"]
         total_messages = member["total_messages"]
         try:
-            user_name = (await app.get_users(user_id)).first_name
+            user_name = (await bot.get_users(user_id)).first_name
         except:
             user_name = "Unknown"
 
@@ -180,4 +180,3 @@ async def overall_rank(_, query):
                InlineKeyboardButton("ᴛᴏᴅᴀʏ ʟᴇᴀᴅᴇʀʙᴏᴀʀᴅ", callback_data="today"),
             ]])
     await query.message.edit_text(response, reply_markup=button)
-      
