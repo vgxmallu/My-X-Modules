@@ -39,7 +39,7 @@ async def _nightmode(_, message):
 @app.on_callback_query(filters.regex("^(add_night|rm_night)$"))
 async def nightcb(bot, query : CallbackQuery):
     data = query.data 
-    chat_id = query.message.chat.id
+    chat_id = query.chat.id #query.message.chat.id
     user_id = query.from_user.id
     check_night = await nightdb.find_one({"chat_id" : chat_id})
     administrators = []
@@ -59,8 +59,6 @@ async def nightcb(bot, query : CallbackQuery):
             elif not check_night:
                 await query.message.edit_caption("**๏  ɴɪɢʜᴛᴍᴏᴅᴇ ɪs ᴀʟʀᴇᴀᴅʏ ᴅɪsᴀʙʟᴇᴅ  ɪɴ ᴛʜɪs ᴄʜᴀᴛ.**") 
             
-    
-    
 async def start_nightmode() :
     chats = []
     schats = await get_nightchats()
