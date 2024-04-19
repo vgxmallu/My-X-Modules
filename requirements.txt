@@ -14,9 +14,9 @@ dnspython==2.4.2
 decorator==5.1.1
 
 Flask==2.1.1
-httpx[http2]
-httpx~=0.26.0
-#httpx==0.25.2
+##httpx[http2]
+##httpx~=0.26.0
+httpx==0.25.2
 bs4==0.0.1
 wget
 motor==3.4.0
@@ -78,5 +78,3 @@ natsort
 
 lxml
 html5lib
-
-gunicorn==20.1.0
