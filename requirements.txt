@@ -9,7 +9,8 @@ python-dotenv==1.0.0
 aiohttp[speedups]>=3.7.3
 asyncio==3.4.3
 aiofiles
-requests==2.31.0
+requests
+##requests==2.31.0
 dnspython==2.4.2
 decorator==5.1.1
 
