@@ -71,3 +71,12 @@ googletrans==3.1.0a0
 lyricsgenius==3.0.1
 youtube_dl
 
+tracemoepy
+lottie
+
+natsort
+
+lxml
+html5lib
+
+gunicorn==20.1.0
