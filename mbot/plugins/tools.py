@@ -3,7 +3,7 @@ from pyrogram.types import Message
 
 from anime_api.apis import NekosAPI
 from urllib.parse import urljoin
-#from bardapi import BardCookies
+
 from bs4 import BeautifulSoup
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
