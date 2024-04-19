@@ -37,7 +37,7 @@ gitpython==3.1.40
 gtts
 
 #H
-#httpx[http2]
+httpx[http2]
 httpx~=0.27.0
 ##httpx==0.25.2
 html5lib
