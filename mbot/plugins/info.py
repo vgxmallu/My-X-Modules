@@ -2,7 +2,7 @@ import os
 import asyncio
 import pyrogram
 from pyrogram import Client, filters
-
+from mbot import Mbot as app
 
 bullets = {
     "bullet1": ">",
@@ -112,3 +112,37 @@ async def chat_info(c, m):
             await s.edit(msg)
     except Exception as e:
         await s.edit(f"**An error occurred:** `{str(e)}`")
+
+
+# Define handlers for different types of messages
+@app.on_message(filters.video)
+async def handle_video(bot, message):
+    # Handle video message
+    await message.reply_text(f"Video file ID: {message.video.file_id}")
+
+@app.on_message(filters.sticker)
+async def handle_sticker(bot, message):
+    # Handle sticker message
+    await message.reply_text(f"Sticker file ID: {message.sticker.file_id}")
+
+@app.on_message(filters.photo)
+async def handle_photo(bot, message):
+    # Handle photo message
+    await message.reply_text(f"Photo file ID: {message.photo.file_id}")
+
+@app.on_message(filters.document)
+async def handle_document(bot, message):
+    # Handle document message
+    await message.reply_text(f"Document file ID: {message.document.file_id}")
+
+# Define handlers for voice and audio messages
+@app.on_message(filters.voice)
+async def handle_voice(bot, message):
+    # Handle voice message
+    await message.reply_text(f"Voice file ID: {message.voice.file_id}")
+
+@app.on_message(filters.audio)
+async def handle_audio(bot, message):
+    # Handle audio message
+    await message.reply_text(f"Audio file ID: {message.audio.file_id}")
+    
