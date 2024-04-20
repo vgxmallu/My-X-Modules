@@ -30,10 +30,10 @@ from .. import (
     TRIGGERS as trg,
     OWNER,
     HELP_DICT,
-    anibot,
     DOWN_PATH,
     LOG_CHANNEL_ID
 )
+from mbot import anibot
 from ..utils.db import get_collection
 from ..utils.helper import (
     AUTH_USERS,
