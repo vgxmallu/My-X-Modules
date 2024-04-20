@@ -5,15 +5,17 @@ from pyrogram.types import (
     CallbackQuery,
     Message
 )
-from ..utils.data_parser import search_filler, parse_filler
-from ..utils.helper import (
+
+from mbot.utils.anib.data_parser import search_filler, parse_filler
+from mbot.utils.anib.helper import (
     check_user,
     control_user,
     rand_key,
     get_user_from_channel as gcc
 )
-from ..utils.db import get_collection
-from .. import BOT_NAME, TRIGGERS as trg, anibot
+from mbot.utils.anib.db import get_collection
+from config import BOT_NAME, TRIGGERS as trg
+from mbot import Mbot as anibot
 
 FILLERS = {}
 DC = get_collection('DISABLED_CMDS')
