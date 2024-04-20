@@ -55,7 +55,6 @@ GENIUS_API = os.getenv('GENIUS_API')
 TRIGGERS = os.environ.get("TRIGGERS", "/ !").split()
 
 BOT_NAME = os.environ.get("BOT_NAME", "GojoSatoru_Xbot")
-DB_URL = os.environ.get("DB_URL")
 ANILIST_CLIENT = os.environ.get("ANILIST_CLIENT")
 ANILIST_SECRET = os.environ.get("ANILIST_SECRET")
 ANILIST_REDIRECT_URL = os.environ.get("ANILIST_REDIRECT_URL", "https://anilist.co/api/v2/oauth/pin")
