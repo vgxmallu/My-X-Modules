@@ -63,7 +63,7 @@ AUTH_CHATS = [int(_x) for _x in AUTH_CHATS]
 #if LOG_GROUP:
 #    LOG_GROUP = int(LOG_GROUP)
 
-
+has_user: bool = False
 #TELETHON BOT RUNNER
 #bot = TelegramClient(__name__, API_ID, API_HASH, base_logger=telethon_logger).start(bot_token=BOT_TOKEN)
 #logger.info("TELETHON BOT STARTED BROO")
