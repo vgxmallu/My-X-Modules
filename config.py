@@ -3,6 +3,11 @@ import os
 from os import getenv
 from dotenv import load_dotenv
 from os import environ
+
+from pyrogram import Client
+from aiohttp import ClientSession
+
+
 if os.path.exists("local.env"):
     load_dotenv("local.env")
 load_dotenv()
@@ -16,6 +21,7 @@ BOT_USERNAME = getenv("BOT_USERNAME" , "GojoSatoru_Xbot")
 #LOGS_CHANNEL_&_GROUP
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001784386455"))
 LOG_GROUP_ID = environ.get("LOG_GROUP_ID")
+LOG_CHANNEL_ID = int(os.environ.get("LOG_CHANNEL"))
 CHANNEL_FORWARD_TO = int(os.environ.get("CHANNEL_FORWARD_TO"))
 #AUTHENTICATED_USERS
 AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "784589736").split())
@@ -43,3 +49,18 @@ DAXX_API = os.environ.get("DAXX_API")
 DEEP_API = os.environ.get("DEEP_API")
 UNSPLASH_ACCESS_KEY = os.getenv('UNSPLASH_ACCESS_KEY','')
 GENIUS_API = os.getenv('GENIUS_API')
+
+
+
+TRIGGERS = os.environ.get("TRIGGERS", "/ !").split()
+
+BOT_NAME = os.environ.get("BOT_NAME", "GojoSatoru_Xbot")
+DB_URL = os.environ.get("DB_URL")
+ANILIST_CLIENT = os.environ.get("ANILIST_CLIENT")
+ANILIST_SECRET = os.environ.get("ANILIST_SECRET")
+ANILIST_REDIRECT_URL = os.environ.get("ANILIST_REDIRECT_URL", "https://anilist.co/api/v2/oauth/pin")
+
+
+OWNER = list(filter(lambda x: x, map(int, os.environ.get("OWNER_ID").split())))  ## sudos can be included
+
+DOWN_PATH = "anibot/downloads/"
