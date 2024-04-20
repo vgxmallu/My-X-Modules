@@ -18,8 +18,10 @@ from pyrogram.types import (
     InlineKeyboardMarkup
 )
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from .. import OWNER, DOWN_PATH, anibot, LOG_CHANNEL_ID, has_user
-from ..utils.db import get_collection
+
+from config import OWNER, DOWN_PATH, LOG_CHANNEL_ID
+from mbot import Mbot as anibot, has_user
+from mbot.utils.anib.db import get_collection
 
 if has_user:
     from .. import user
