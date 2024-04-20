@@ -2,9 +2,10 @@ import requests
 import time
 import os
 from bs4 import BeautifulSoup
-from .db import get_collection
-from .google_trans_new import google_translator
-from .helper import (
+
+from mbot.utils.anib.db import get_collection
+from mbot.utils.anib.google_trans_new import google_translator
+from mbot.utils.anib.helper import (
     cflag,
     make_it_rw,
     pos_no,
@@ -12,6 +13,7 @@ from .helper import (
     day_,
     season_
 )
+
 from config import BOT_NAME
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from datetime import datetime
