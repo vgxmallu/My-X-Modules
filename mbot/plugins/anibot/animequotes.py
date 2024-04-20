@@ -6,9 +6,10 @@ from pyrogram.types import (
     InlineKeyboardMarkup as IKM,
     InlineKeyboardButton as IKB
 )
-from .. import BOT_NAME, TRIGGERS as trg, anibot
-from ..utils.helper import control_user, check_user
-from ..utils.db import get_collection
+from config import BOT_NAME, TRIGGERS as trg
+from mbot import Mbot as anibot
+from mbot.utils.anib.helper import control_user, check_user
+from mbot.utils.anib.db import get_collection
 
 DC = get_collection('DISABLED_CMDS')
 
