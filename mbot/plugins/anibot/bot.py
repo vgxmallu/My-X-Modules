@@ -904,7 +904,7 @@ async def db_cleanup_edit(client: Client, message: Message, mdata: dict):
     await db_cleanup(client, message)
 
 @anibot.on_edited_message(
-    filters.command(['start', f'start{BOT_NAME}'], prefixes=trg)
+    filters.command(['st', f'st{BOT_NAME}'], prefixes=trg)
 )
 @control_user
 async def start_edit(client: Client, message: Message, mdata: dict):
