@@ -13,7 +13,7 @@ from mbot import Mbot as app
 
 
 # View Structure Telegram Message As JSON
-@app.on_cmd("json")
+@app.on_message(filters.command("json"))
 async def jsonify(_, message: Message):
     the_real_message = None
     reply_to_id = None
