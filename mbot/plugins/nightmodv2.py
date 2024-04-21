@@ -253,7 +253,7 @@ async def nightmode_handler(self, msg):
 
 
 @app.on_callback_query(filters.regex(r"^nightmd$"))
-async def callbackanightmd(c, q, strings):
+async def callbackanightmd(c, q):
     try:
         await q.answer(
             f"🔖 Hi, I {bname} was created using the Pyrogram v{ver} and Python v{pyver} Framework.\n\nWant to make a bot like this? Come learn at @GojoSatoru_Xbot".format(
