@@ -119,7 +119,7 @@ async def un_mute_chat(chat_id: int, perm: ChatPermissions):
         await app.send_message(
             LOG_CHANNEL,
             f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{chat_id}`, since {bname} is not present in chat `{chat_id}`. Removed group from list.".format(
-                chat_id=chat_id, bname=BOT_NAME, chat_id=chat_id
+                chat_id=chat_id, bname=BOT_NAME
             ),
         )
     except ChatNotModified:
@@ -154,7 +154,7 @@ async def mute_chat(chat_id: int):
         await app.send_message(
             LOG_CHANNEL,
             f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{chat_id}`, since {bname} is not an admin in chat `{chat_id}`".format(
-                chat_id=chat_id, bname=BOT_NAME, chat_id=chat_id
+                chat_id=chat_id, bname=BOT_NAME
             ),
         )
     except (ChannelInvalid, ChannelPrivate, PeerIdInvalid):
@@ -163,7 +163,7 @@ async def mute_chat(chat_id: int):
         await app.send_message(
             LOG_CHANNEL,
             f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{chat_id}`, since {bname} is not present in chat `{chat_id}`. Removed group from list.".format(
-                chat_id=chat_id, bname=BOT_NAME, chat_id=chat_id
+                chat_id=chat_id, bname=BOT_NAME
             ),
         )
     except ChatNotModified:
