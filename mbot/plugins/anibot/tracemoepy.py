@@ -20,8 +20,9 @@ from pyrogram.types import (
     InputMediaVideo,
     Message
 )
-from .. import BOT_NAME, TRIGGERS as trg, anibot, session
-from ..utils.helper import (
+from config import BOT_NAME, TRIGGERS as trg
+from mbot import Mbot as anibot, session
+from mbot.utils.anib.helper import (
     check_user,
     clog,
     control_user,
@@ -29,9 +30,9 @@ from ..utils.helper import (
     rand_key,
     get_user_from_channel as gcc
 )
-from ..utils.data_parser import check_if_adult
-from ..utils.db import get_collection
-from .anilist import no_pic
+from mbot.utils.anib.data_parser import check_if_adult
+from mbot.utils.anib.db import get_collection
+from mbot.plugins.anibot.anilist import no_pic
 
 SFW_GRPS = get_collection("SFW_GROUPS")
 DC = get_collection('DISABLED_CMDS')
