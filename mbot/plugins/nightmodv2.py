@@ -21,12 +21,13 @@ from pyrogram.errors import (
 )
 from pyrogram.types import ChatPermissions, InlineKeyboardButton, InlineKeyboardMarkup
 
-from database.locale_db import get_db_lang
-from misskaty import BOT_NAME, app, scheduler
+from mbot import BOT_NAME, Mbot as app, scheduler
+
+
 from misskaty.core.decorator import permissions
-from misskaty.core.decorator.permissions import require_admin
-from misskaty.helper.localization import langdict
-from misskaty.vars import COMMAND_HANDLER, LOG_CHANNEL, TZ
+from mbot.utils.nighthlp.permissions import require_admin
+
+from misskaty.vars import COMMAND_HANDLER, LOG_CHANNEL
 
 from config import LOG_CHANNEL, TZ
 
@@ -105,8 +106,6 @@ def extract_time(time_val: str):
 
 
 async def un_mute_chat(chat_id: int, perm: ChatPermissions):
-    getlang = await get_db_lang(chat_id)
-    getlang = getlang or "en-US"
     try:
         await app.set_chat_permissions(chat_id, perm)
     except AttributeError:
@@ -114,7 +113,7 @@ async def un_mute_chat(chat_id: int, perm: ChatPermissions):
     except ChatAdminRequired:
         await app.send_message(
             LOG_CHANNEL,
-            langdict[getlang]["nightmodev2"]["nmd_off_not_admin"].format(
+            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{chat_id}`, since {bname} is not an admin in chat `{chat_id}`".format(
                 chat_id=chat_id, bname=BOT_NAME
             ),
         )
@@ -123,8 +122,8 @@ async def un_mute_chat(chat_id: int, perm: ChatPermissions):
         scheduler.remove_job(f"disable_nightmode_{chat_id}")
         await app.send_message(
             LOG_CHANNEL,
-            langdict[getlang]["nightmodev2"]["nmd_off_not_present"].format(
-                chat_id=chat_id, bname=BOT_NAME
+            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{chat_id}`, since {bname} is not present in chat `{chat_id}`. Removed group from list.".format(
+                chat_id=chat_id, bname=BOT_NAME, chat_id=chat_id
             ),
         )
     except ChatNotModified:
@@ -132,7 +131,7 @@ async def un_mute_chat(chat_id: int, perm: ChatPermissions):
     except Exception as e:
         await app.send_message(
             LOG_CHANNEL,
-            langdict[getlang]["nightmodev2"]["nmd_off_err"].format(
+            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{chat_id}`\nERROR: `{e}`".format(
                 chat_id=chat_id, e=e
             ),
         )
@@ -142,7 +141,7 @@ async def un_mute_chat(chat_id: int, perm: ChatPermissions):
         try:
             await app.send_message(
                 chat_id,
-                langdict[getlang]["nightmodev2"]["nmd_off_success"].format(
+                f"#NIGHTMODE_HANDLER\n📆 {dt}\n\n☀️ Group is Opening.\nWill be closed at {close_at}".format(
                     dt=tglsekarang(), close_at=close_at
                 ),
                 reply_markup=reply_markup,
@@ -153,15 +152,13 @@ async def un_mute_chat(chat_id: int, perm: ChatPermissions):
 
 
 async def mute_chat(chat_id: int):
-    getlang = await get_db_lang(chat_id)
-    getlang = getlang or "en-US"
     try:
         await app.set_chat_permissions(chat_id, ChatPermissions(all_perms=False))
     except ChatAdminRequired:
         await app.send_message(
             LOG_CHANNEL,
-            langdict[getlang]["nightmodev2"]["nmd_on_not_admin"].format(
-                chat_id=chat_id, bname=BOT_NAME
+            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{chat_id}`, since {bname} is not an admin in chat `{chat_id}`".format(
+                chat_id=chat_id, bname=BOT_NAME, chat_id=chat_id
             ),
         )
     except (ChannelInvalid, ChannelPrivate, PeerIdInvalid):
@@ -169,8 +166,8 @@ async def mute_chat(chat_id: int):
         scheduler.remove_job(f"disable_nightmode_{chat_id}")
         await app.send_message(
             LOG_CHANNEL,
-            langdict[getlang]["nightmodev2"]["nmd_on_not_present"].format(
-                chat_id=chat_id, bname=BOT_NAME
+            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{chat_id}`, since {bname} is not present in chat `{chat_id}`. Removed group from list.".format(
+                chat_id=chat_id, bname=BOT_NAME, chat_id=chat_id
             ),
         )
     except ChatNotModified:
@@ -178,14 +175,14 @@ async def mute_chat(chat_id: int):
     except Exception as e:
         await app.send_message(
             LOG_CHANNEL,
-            langdict[getlang]["nightmodev2"]["nmd_on_err"].format(chat_id=chat_id, e=e),
+            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{chat_id}`\nERROR: `{e}`".format(chat_id=chat_id, e=e),
         )
     else:
         job = scheduler.get_job(f"disable_nightmode_{chat_id}")
         open_at = job.next_run_time
         await app.send_message(
             chat_id,
-            langdict[getlang]["nightmodev2"]["nmd_on_success"].format(
+            f"#NIGHTMODE_HANDLER\n📆 {dt}\n\n🌗 Group is closing.\nWill be opened at {open_at}".format(
                 dt=tglsekarang(), open_at=open_at
             ),
             reply_markup=reply_markup,
@@ -202,8 +199,8 @@ async def nightmode_handler(self, msg, strings):
             scheduler.remove_job(job_id=f"disable_nightmode_{chat_id}")
             if not bool(scheduler.get_jobs()) and bool(scheduler.state):
                 scheduler.shutdown()
-            return await msg.reply_msg(strings("nmd_disabled"))
-        return await msg.reply_msg(strings("nmd_not_enabled"))
+            return await msg.reply_text("Nightmode disabled.")
+        return await msg.reply_text("Nightmode isn't enabled in this chat.")
 
     starttime = re.findall(r"-s=(\d+:\d+)", msg.text)
     start = starttime[0] if starttime else "00:00"
@@ -214,13 +211,13 @@ async def nightmode_handler(self, msg, strings):
             datetime.strptime((now.strftime("%m:%d:%Y - ") + start), "%m:%d:%Y - %H:%M")
         )
     except ValueError:
-        return await msg.reply_msg(strings("invalid_time_format"), del_in=6)
+        return await msg.reply_text("Invalid time format. Use HH:MM format.")
     lockdur = re.findall(r"-e=(\w+)", msg.text)
     lockdur = lockdur[0] if lockdur else "6h"
     lock_dur = extract_time(lockdur.lower())
 
     if not lock_dur:
-        return await msg.reply_msg(strings("invalid_lockdur"), del_in=6)
+        return await msg.reply_text("Invalid time duration. Use proper format.\nExample: 6h (for 6 hours), 10m for 10 minutes.")
 
     if start_timestamp < now:
         start_timestamp = start_timestamp + timedelta(days=1)
@@ -269,9 +266,9 @@ async def nightmode_handler(self, msg, strings):
             misfire_grace_time=None,
         )
     except ConflictingIdError:
-        return await msg.reply_msg(strings("schedule_already_on"))
-    await msg.reply_msg(
-        strings("nmd_enable_success").format(
+        return await msg.reply_text("Already a schedule is running in this chat. Disable it using `-d` flag.")
+    await msg.reply_text(
+        f"Successfully enabled nightmode in this chat.\nGroup will be locked at {st} and will be opened after {lockdur} everyday.".format(
             st=start_timestamp.strftime("%H:%M:%S"), lockdur=lockdur
         )
     )
@@ -283,7 +280,7 @@ async def nightmode_handler(self, msg, strings):
 async def callbackanightmd(c, q, strings):
     try:
         await q.answer(
-            strings("nmd_cb").format(
+            f"🔖 Hi, I {bname} was created using the Pyrogram v{ver} and Python v{pyver} Framework.\n\nWant to make a bot like this? Come learn at @GojoSatoru_Xbot".format(
                 bname=c.me.first_name, ver=__version__, pyver=platform.python_version()
             ),
             show_alert=True,
