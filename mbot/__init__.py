@@ -106,3 +106,5 @@ class Mbot(Client):
     async def stop(self, *args):
         await super().stop()
         LOGGER.info("\n__________             ._.\n\______   \___.__. ____| |\n|    |  _<   |  |/ __ \ |\n|    |   \\\___  \  ___/\|\n|______  // ____|\___  >_\n        \/ \/         \/\/\n\nBot Stopped, Bye.")
+
+BOT_NAME = Mbot.me.first_name
