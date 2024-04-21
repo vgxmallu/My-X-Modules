@@ -191,7 +191,7 @@ async def search_command(client, message):
         await message.reply_text(f"Error: {str(e)}")
         
        
-@app.on_message(filters.command("song"))
+@app.on_message(filters.command("audio"))
 async def song_command(client, message):
     try:
         #chat_id = message.chat.id
