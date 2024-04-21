@@ -25,7 +25,7 @@ from pyrogram.errors import (
     PeerIdInvalid as pi,
     FloodWait as fw
 )
-from .. import (
+from config import (
     BOT_NAME,
     TRIGGERS as trg,
     OWNER,
@@ -34,8 +34,8 @@ from .. import (
     LOG_CHANNEL_ID
 )
 from mbot import anibot
-from ..utils.db import get_collection
-from ..utils.helper import (
+from mbot.utils.anib.db import get_collection
+from mbot.utils.anib.helper import (
     AUTH_USERS,
     clog,
     check_user,
@@ -51,7 +51,7 @@ from ..utils.helper import (
     USER_JSON,
     USER_WC
 )
-from ..utils.data_parser import (
+from mbot.utils.anib.data_parser import (
     get_all_genres,
     get_all_tags,
     get_top_animes,
