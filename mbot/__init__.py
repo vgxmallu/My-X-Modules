@@ -6,6 +6,11 @@ import time
 #from telethon import TelegramClient, events, functions, types
 #import telebot
 
+
+
+from aiohttp import ClientSession
+
+
 CMD = ["/", ".", "?", "#", "!", "mg", "mx", ","]
 
 
@@ -63,7 +68,9 @@ AUTH_CHATS = [int(_x) for _x in AUTH_CHATS]
 #if LOG_GROUP:
 #    LOG_GROUP = int(LOG_GROUP)
 
+#Anibot
 has_user: bool = False
+session = ClientSession()
 #TELETHON BOT RUNNER
 #bot = TelegramClient(__name__, API_ID, API_HASH, base_logger=telethon_logger).start(bot_token=BOT_TOKEN)
 #logger.info("TELETHON BOT STARTED BROO")
