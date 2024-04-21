@@ -272,8 +272,8 @@ async def callbackanightmd(c, q):
     try:
         await q.answer("🔖 Hi, I Saturo X bot was created using the Pyrogram v1.11.13 and Python v1.2.2 Framework.\n\nWant to make a bot like this? Come learn at @GojoSatoru_Xbot",
             show_alert=True,
-            cache_time=10
-            )
+            cache_time=10,
+            ),
         )
     except QueryIdInvalid:
         pass 
