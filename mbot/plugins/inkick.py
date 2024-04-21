@@ -159,15 +159,15 @@ async def rm_delacc(bot, message):
 @app.on_message(
     filters.incoming & ~filters.private & filters.command(["instatus"])
 )
-async def instatus(client, message: bot, msg):
-    bstat = await bot.get_chat_member(message.chat.id, client.me.id)
+async def instatus(client, message):
+    bstat = await client.get_chat_member(message.chat.id, client.me.id)
     if bstat.status.value != "administrator":
         return await message.reply_msg(
             "Please give me all basic admin permission, to run this command."
         )
     start_time = time.perf_counter()
-    user = await bot.get_chat_member(message.chat.id, message.from_user.id)
-    count = await bot.get_chat_members_count(message.chat.id)
+    user = await client.get_chat_member(message.chat.id, message.from_user.id)
+    count = await client.get_chat_members_count(message.chat.id)
     if user.status in (
         enums.ChatMemberStatus.ADMINISTRATOR,
         enums.ChatMemberStatus.OWNER,
@@ -186,15 +186,15 @@ async def instatus(client, message: bot, msg):
         banned = 0
         uncached = 0
         bot = 0
-        async for _ in bot.get_chat_members(
+        async for _ in client.get_chat_members(
             message.chat.id, filter=enums.ChatMembersFilter.BANNED
         ):
             banned += 1
-        async for _ in bot.get_chat_members(
+        async for _ in client.get_chat_members(
             message.chat.id, filter=enums.ChatMembersFilter.RESTRICTED
         ):
             restricted += 1
-        async for member in bot.get_chat_members(message.chat.id):
+        async for member in client.get_chat_members(message.chat.id):
             user = member.user
             if user.is_deleted:
                 deleted_acc += 1
