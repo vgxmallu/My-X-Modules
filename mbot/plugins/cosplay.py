@@ -7,14 +7,14 @@ from mbot import Mbot as app
 
 NYKAA = [
     [
-        InlineKeyboardButton(text="ᴀᴅᴅ ᴍᴇ ʙᴀʙʏ", url=f"https://t.me/nykaaxbot?startgroup=true"),
+        InlineKeyboardButton(text="ᴀᴅᴅ ᴍᴇ ʙᴀʙʏ", url=f"https://t.me/GojoSatoru_Xbot"),
     ],
 ]
 
 @app.on_message(filters.command("cosplay"))
 async def cosplay(_,msg):
     img = requests.get("https://waifu-api.vercel.app").json()
-    await msg.reply_photo(img, caption=f"❅ ᴄᴏsᴘʟᴀʏ ʙʏ ➠ ๛ɴ ʏ ᴋ ᴀᴀ ༗", reply_markup=InlineKeyboardMarkup(NYKAA),)
+    await msg.reply_photo(img, caption=f"Send by @GojoSatoru_Xbot", reply_markup=InlineKeyboardMarkup(NYKAA),)
 
 
 
@@ -24,11 +24,11 @@ async def ncosplay(_,msg):
       await msg.reply_text("❍ sᴏʀʀʏ ʏᴏᴜ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴏɴʟʏ ɪɴ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ ᴡɪᴛʜ ʙᴏᴛ",
         reply_markup=InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("ɢᴏ ᴘᴍ",url=f"https://t.me/narikt?start=True")]
+                [InlineKeyboardButton("ɢᴏ ᴘᴍ",url=f"https://t.me/GojoSatoru_Xbot")]
             ]
         ))
     else:
        ncosplay = requests.get("https://waifu-api.vercel.app/items/1").json()
 
-       await msg.reply_photo(ncosplay, caption=f"❅ ᴄᴏsᴘʟᴀʏ ʙʏ ➠ ๛ɴ ʏ ᴋ ᴀ ᴀ ࿐", reply_markup=InlineKeyboardMarkup(NYKAA),)
+       await msg.reply_photo(ncosplay, caption=f"@GojoSatoru_Xbot", reply_markup=InlineKeyboardMarkup(NYKAA),)
 
