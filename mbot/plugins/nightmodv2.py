@@ -38,7 +38,7 @@ __HELP__ = """<b>Enable or disable nightmode (locks the chat at specified interv
 
 
 #===================
-cmd = """
+cmd_9 = """
 #NIGHTMODE_FAIL\nFailed to turn off nightmode at `{}`, since {} is not an admin in chat
 """
 cmd_8 = """
