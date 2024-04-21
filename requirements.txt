@@ -1,7 +1,8 @@
 #A
 aiohttp[speedups]>=3.7.3
 ###aiohttp==3.9.3
-asyncio==3.4.3
+asyncio
+#==3.4.3
 aiofiles
 asgiref
 apscheduler
