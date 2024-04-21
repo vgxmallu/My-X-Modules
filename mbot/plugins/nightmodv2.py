@@ -184,7 +184,7 @@ async def mute_chat(chat_id: int):
 
 
 @app.on_message(filters.command("nightmode") & filters.group)
-async def nightmode_handler(self, msg, strings):
+async def nightmode_handler(self, msg):
     chat_id = msg.chat.id
 
     if "-d" in msg.text:
