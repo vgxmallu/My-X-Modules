@@ -7,7 +7,9 @@ import time
 #import telebot
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from config import TZ
+from config import TZ, DB_URL, DB_NAME
+from pymongo import MongoClient
+from apscheduler.jobstores.mongodb import MongoDBJobStore
 
 CMD = ["/", ".", "?", "#", "!", "mg", "mx", ","]
 
@@ -65,7 +67,11 @@ AUTH_CHATS = [int(_x) for _x in AUTH_CHATS]
 #LOG_GROUP = environ.get("LOG_GROUP", None)
 #if LOG_GROUP:
 #    LOG_GROUP = int(LOG_GROUP)
-
+jobstores = {
+    "default": MongoDBJobStore(
+        client=MongoClient(DB_URL), database=DB_NAME, collection="nightmode"
+    )
+    }
 scheduler = AsyncIOScheduler(jobstores=jobstores, timezone=TZ)
 
 #TELETHON BOT RUNNER
