@@ -1,15 +1,20 @@
 # uses jikanpy (Jikan API)
 from pyrogram import filters, Client
 from pyrogram.types import Message, CallbackQuery
-from .. import BOT_NAME, TRIGGERS as trg, anibot
-from ..utils.data_parser import get_scheduled
-from ..utils.helper import (
+
+
+from config import BOT_NAME, TRIGGERS as trg
+from mbot import Mbot as anibot
+from mbot.utils.anib.data_parser import get_scheduled
+from mbot.utils.anib.helper import (
     control_user,
     get_btns,
     check_user,
     get_user_from_channel as gcc
 )
-from ..utils.db import get_collection
+from mbot.utils.anib.db import get_collection
+
+
 
 DC = get_collection('DISABLED_CMDS')
 
