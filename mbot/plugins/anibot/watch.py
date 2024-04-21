@@ -8,14 +8,15 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     Message
 )
-from .. import BOT_NAME, TRIGGERS as trg, anibot
-from ..utils.data_parser import get_wo, get_wols
-from ..utils.helper import (
+from config import BOT_NAME, TRIGGERS as trg
+from mbot import Mbot as anibot
+from mbot.utils.anib.data_parser import get_wo, get_wols
+from mbot.utils.anib.helper import (
     check_user,
     control_user,
     get_user_from_channel as gcc
 )
-from ..utils.db import get_collection
+from mbot.utils.anib.db import get_collection
 
 DC = get_collection('DISABLED_CMDS')
 
