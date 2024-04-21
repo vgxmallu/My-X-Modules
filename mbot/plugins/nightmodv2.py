@@ -100,7 +100,7 @@ async def un_mute_chat(chat_id: int):
     try:
         await app.send_message(
             LOG_CHANNEL,
-            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{chat_id}`, since {bname} is not an admin in chat `{chat_id}`".format(
+            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{}`, since {} is not an admin in chat".format(
                 chat_id=chat_id, bname=BOT_NAME
             ),
         )
@@ -109,7 +109,7 @@ async def un_mute_chat(chat_id: int):
         scheduler.remove_job(f"disable_nightmode_{chat_id}")
         await app.send_message(
             LOG_CHANNEL,
-            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{chat_id}`, since {bname} is not present in chat `{chat_id}`. Removed group from list.".format(
+            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{}`, since {} is not present in chat. Removed group from list.".format(
                 chat_id=chat_id, bname=BOT_NAME
             ),
         )
@@ -118,7 +118,7 @@ async def un_mute_chat(chat_id: int):
     except Exception as e:
         await app.send_message(
             LOG_CHANNEL,
-            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{chat_id}`\nERROR: `{e}`".format(
+            f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{}`\nERROR: `{}`".format(
                 chat_id=chat_id, e=e
             ),
         )
@@ -128,7 +128,7 @@ async def un_mute_chat(chat_id: int):
         try:
             await app.send_message(
                 chat_id,
-                f"#NIGHTMODE_HANDLER\n📆 {dt}\n\n☀️ Group is Opening.\nWill be closed at {close_at}".format(
+                f"#NIGHTMODE_HANDLER\n📆 {}\n\n☀️ Group is Opening.\nWill be closed at {}".format(
                     dt=tglsekarang(), close_at=close_at
                 ),
                 reply_markup=reply_markup,
@@ -144,7 +144,7 @@ async def mute_chat(chat_id: int):
     except ChatAdminRequired:
         await app.send_message(
             LOG_CHANNEL,
-            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{chat_id}`, since {bname} is not an admin in chat `{chat_id}`".format(
+            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{}`, since {} is not an admin in chat.".format(
                 chat_id=chat_id, bname=BOT_NAME
             ),
         )
@@ -153,7 +153,7 @@ async def mute_chat(chat_id: int):
         scheduler.remove_job(f"disable_nightmode_{chat_id}")
         await app.send_message(
             LOG_CHANNEL,
-            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{chat_id}`, since {bname} is not present in chat `{chat_id}`. Removed group from list.".format(
+            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{}`, since {} is not present in chat. Removed group from list.".format(
                 chat_id=chat_id, bname=BOT_NAME
             ),
         )
@@ -162,14 +162,14 @@ async def mute_chat(chat_id: int):
     except Exception as e:
         await app.send_message(
             LOG_CHANNEL,
-            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{chat_id}`\nERROR: `{e}`".format(chat_id=chat_id, e=e),
+            f"#NIGHTMODE_FAIL\nFailed to enable nightmode at `{}`\nERROR: `{}`".format(chat_id=chat_id, e=e),
         )
     else:
         job = scheduler.get_job(f"disable_nightmode_{chat_id}")
         open_at = job.next_run_time
         await app.send_message(
             chat_id,
-            f"#NIGHTMODE_HANDLER\n📆 {dt}\n\n🌗 Group is closing.\nWill be opened at {open_at}".format(
+            f"#NIGHTMODE_HANDLER\n📆 {}\n\n🌗 Group is closing.\nWill be opened at {}".format(
                 dt=tglsekarang(), open_at=open_at
             ),
             reply_markup=reply_markup,
@@ -248,7 +248,7 @@ async def nightmode_handler(self, msg):
 async def callbackanightmd(c, q):
     try:
         await q.answer(
-            f"🔖 Hi, I {bname} was created using the Pyrogram v{ver} and Python v{pyver} Framework.\n\nWant to make a bot like this? Come learn at @GojoSatoru_Xbot".format(
+            f"🔖 Hi, I {} was created using the Pyrogram v{} and Python v{} Framework.\n\nWant to make a bot like this? Come learn at @GojoSatoru_Xbot".format(
                 bname=c.me.first_name, ver=__version__, pyver=platform.python_version()
             ),
             show_alert=True,
