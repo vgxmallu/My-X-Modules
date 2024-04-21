@@ -99,12 +99,8 @@ def extract_time(time_val: str):
     return ""
 
 
-async def un_mute_chat(chat_id: int, perm: ChatPermissions):
+async def un_mute_chat(chat_id: int):
     try:
-        await app.set_chat_permissions(chat_id, perm)
-    except AttributeError:
-        await app.set_chat_permissions(chat_id, ChatPermissions(all_perms=True))
-    except ChatAdminRequired:
         await app.send_message(
             LOG_CHANNEL,
             f"#NIGHTMODE_FAIL\nFailed to turn off nightmode at `{chat_id}`, since {bname} is not an admin in chat `{chat_id}`".format(
