@@ -50,4 +50,4 @@ UNSPLASH_ACCESS_KEY = os.getenv('UNSPLASH_ACCESS_KEY','')
 GENIUS_API = os.getenv('GENIUS_API')
 
 
-
+TZ = environ.get("TZ", "Asia/Kolkata")
