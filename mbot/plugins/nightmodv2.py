@@ -236,9 +236,8 @@ async def nightmode_handler(self, msg):
         )
     except ConflictingIdError:
         return await msg.reply_text("Already a schedule is running in this chat. Disable it using `-d` flag.")
-    await msg.reply_text(
-        f"Successfully enabled nightmode in this chat.\nGroup will be locked at {st} and will be opened after {lockdur} everyday.".format(
-            st=start_timestamp.strftime("%H:%M:%S"), lockdur=lockdur
+    await msg.reply_text(f"Successfully enabled nightmode in this chat.\nGroup will be locked at {} and will be opened after {} everyday.".format(
+        st=start_timestamp.strftime("%H:%M:%S"), lockdur=lockdur
         )
     )
     if not bool(scheduler.state):
