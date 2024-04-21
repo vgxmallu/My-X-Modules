@@ -9,9 +9,9 @@ from datetime import datetime as dt
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import WebpageCurlFailed, WebpageMediaEmpty, ChatAdminRequired
-from .. import anibot
-from ..utils.db import get_collection
-from ..utils.helper import clog
+from mbot import Mbot as anibot
+from mbot.utils.anib.db import get_collection
+from mbot.utils.anib.helper import clog
 
 failed_pic = "https://telegra.ph/file/09733b49f3a9d5b147d21.png"
 
