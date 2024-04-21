@@ -52,7 +52,6 @@ imdbpy
 
 #L
 lxml
-lottie
 lyricsgenius==3.0.1
 
 #M
@@ -60,7 +59,6 @@ motor==3.4.0
 mutagen
 
 #N
-natsort
 NoteShrinker
 
 #O
