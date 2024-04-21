@@ -23,8 +23,6 @@ from pyrogram.types import ChatPermissions, InlineKeyboardButton, InlineKeyboard
 
 from mbot import BOT_NAME, Mbot as app, scheduler
 
-from misskaty.vars import COMMAND_HANDLER, LOG_CHANNEL
-
 from config import LOG_CHANNEL, TZ
 
 
