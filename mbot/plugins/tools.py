@@ -214,9 +214,9 @@ async def song_command(client, message):
 
                     # if mp3_filename:
                     #chat_id = message.chat.id
-                    await message.reply_text("Uploading audio...")
+                    await message.text("Uploading audio...")
 
-                    await message.reply_audio(filename)
+                    await message.audio(filename)
 
                     await message.reply_text("Audio upload finished!")
                     os.remove(filename)
