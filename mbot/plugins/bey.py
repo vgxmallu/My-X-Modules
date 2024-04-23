@@ -60,7 +60,7 @@ font_path = "mbot/assets/hiroko.ttf"
 # -------------
 
 @app.on_chat_member_updated(filters.group, group=20)
-async def member_has_left(client: app, member: ChatMemberUpdated):
+async def member_has_left(bot, member: ChatMemberUpdated):
 
     if (
         not member.new_chat_member
@@ -83,7 +83,7 @@ async def member_has_left(client: app, member: ChatMemberUpdated):
     if user.photo and user.photo.big_file_id:
         try:
             # Add the photo path, caption, and button details
-            photo = await app.download_media(user.photo.big_file_id)
+            photo = await bot.download_media(user.photo.big_file_id)
 
             welcome_photo = await get_userinfo_img(
                 bg_path=bg_path,
@@ -99,7 +99,7 @@ async def member_has_left(client: app, member: ChatMemberUpdated):
             deep_link = f"tg://openmessage?user_id={user.id}"
 
             # Send the message with the photo, caption, and button
-            message = await client.send_photo(
+            message = await bot.send_photo(
                 chat_id=member.chat.id,
                 photo=welcome_photo,
                 caption=caption,
