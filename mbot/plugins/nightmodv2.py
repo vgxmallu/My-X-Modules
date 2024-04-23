@@ -129,74 +129,6 @@ def extract_time(time_val: str):
     return ""
 
 
-async def un_mute_chat(chat_id: int):
-    try:
-        await app.send_message(
-            LOG_CHANNEL,
-            text=cmd_9.format(chat_id, BOT_NAME)
-        )
-     
-    except (ChannelInvalid, ChannelPrivate, PeerIdInvalid):
-        scheduler.remove_job(f"enable_nightmode_{chat_id}")
-        scheduler.remove_job(f"disable_nightmode_{chat_id}")
-        await app.send_message(
-            LOG_CHANNEL,
-            text=cmd_8.format(chat_id, BOT_NAME)
-        )
-    except ChatNotModified:
-        pass
-    except Exception as e:
-        await app.send_message(
-            LOG_CHANNEL,
-            text=cmd_7.format(chat_id, e)
-        )
-    else:
-        job = scheduler.get_job(f"enable_nightmode_{chat_id}")
-        close_at = job.next_run_time
-        try:
-            await app.send_message(
-                chat_id,
-                text=cmd_6.format(tglsekarang(), close_at),
-                reply_markup=reply_markup
-            )
-        except ChatRestricted:
-            scheduler.remove_job(f"enable_nightmode_{chat_id}")
-            scheduler.remove_job(f"disable_nightmode_{chat_id}")
-
-
-async def mute_chat(chat_id: int):
-    try:
-        await app.set_chat_permissions(chat_id, ChatPermissions(all_perms=False))
-    except ChatAdminRequired:
-        await app.send_message(
-            LOG_CHANNEL,
-            text=cmd_5.format(chat_id, BOT_NAME)
-        )
-      
-    except (ChannelInvalid, ChannelPrivate, PeerIdInvalid):
-        scheduler.remove_job(f"enable_nightmode_{chat_id}")
-        scheduler.remove_job(f"disable_nightmode_{chat_id}")
-        await app.send_message(
-            LOG_CHANNEL,
-            text=cmd_4.format(chat_id, BOT_NAME)
-        )
-    
-    except ChatNotModified:
-        pass
-    except Exception as e:
-        await app.send_message(
-            LOG_CHANNEL,
-            text=cmd_3.format(chat_id, e),
-        )
-    else:
-        job = scheduler.get_job(f"disable_nightmode_{chat_id}")
-        open_at = job.next_run_time
-        await app.send_message(
-            chat_id,
-            text=cmd_2.format(tglsekarang(), open_at),
-            reply_markup=reply_markup
-        )
-
 
 @app.on_message(filters.command("nightmode") & filters.group)
 async def nightmode_handler(self, msg):
@@ -235,7 +167,6 @@ async def nightmode_handler(self, msg):
     try:
         # schedule to enable nightmode
         scheduler.add_job(
-            mute_chat,
             "interval",
             [chat_id],
             id=f"enable_nightmode_{chat_id}",
@@ -247,7 +178,6 @@ async def nightmode_handler(self, msg):
 
         # schedule to disable nightmode
         scheduler.add_job(
-            un_mute_chat,
             "interval",
             [chat_id],
             id=f"disable_nightmode_{chat_id}",
